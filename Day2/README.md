@@ -62,11 +62,7 @@ During synthesis, Yosys can:
 - Perform technology mapping
 - Generate a synthesized netlist
 
-For my experiment, I used Yosys to synthesize the `good_mux` design that I created and simulated earlier.
-
-The important concept I learned is:
-
-> **RTL describes the intended behavior, while synthesis determines a hardware implementation of that behavior.**
+<img width="1241" height="497" alt="Screenshot 2026-08-08 164535" src="https://github.com/user-attachments/assets/7166c91d-be2d-4444-9163-a6cdc0955dc6" />
 
 ---
 
