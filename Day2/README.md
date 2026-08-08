@@ -132,7 +132,7 @@ The graphical output gives a clear view of the internal logic structure of the *
 
 I inspected the generated file to understand what Yosys actually produced:
 
-<img width="920" height="582" alt="Virtual5" src="https://github.com/user-attachments/assets/259829a3-1dfd-4728-bc9f-c9ebc1ee0880" />
+<img width="700" height="582" alt="Virtual5" src="https://github.com/user-attachments/assets/259829a3-1dfd-4728-bc9f-c9ebc1ee0880" />
 
 ### What Makes the Netlist Interesting?
 
@@ -156,4 +156,12 @@ The synthesized netlist was generated as `good_mux_netlist.v`. I then checked th
 - **Cell Flavors:** I understood that the same logic function can have different cell implementations, providing different trade-offs between **Power, Performance, and Area (PPA)**.
 - **Netlist Exploration:** I generated and inspected `good_mux_netlist.v` to understand how my original 2:1 MUX RTL was represented after synthesis.
 - **Graphical Representation:** The Yosys graphical view helped me visualize the internal logic structure and understand how signals and logic elements are connected.
+---
 
+<div align="center">
+
+### ⭐ Day 02 Complete
+
+*"Behind every line of RTL is a hardware story waiting to be synthesized."*
+
+</div>
