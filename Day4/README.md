@@ -45,13 +45,13 @@ This helped me observe how multiple RTL modules are processed together and trans
 
 The synthesized design was explored to verify the module hierarchy and understand how the different blocks are represented after synthesis.
 
-<img width="900" height="500" alt="sub_multiples_modules" src="https://github.com/user-attachments/assets/20e57736-01dc-47d8-a1eb-3a7115252828" />
+<img width="800" height="480" alt="sub_multiples_modules" src="https://github.com/user-attachments/assets/20e57736-01dc-47d8-a1eb-3a7115252828" />
 
 > **From multiple RTL modules → hierarchy → synthesized netlist.** 🔗
 
 The image below shows the **synthesized multi-module design**, where the top module and its connected sub-modules can be observed after synthesis.
 
-<img width="900" height="500" alt="show_multiples_modules" src="https://github.com/user-attachments/assets/63cdb32b-8a10-4d9c-8773-7a9ed0ec9329" />
+<img width="800" height="480" alt="show_multiples_modules" src="https://github.com/user-attachments/assets/63cdb32b-8a10-4d9c-8773-7a9ed0ec9329" />
 
 ## Exploring Multiple Modules with GVim
 
@@ -61,7 +61,7 @@ This helped me understand how the **top module connects with its sub-modules** a
 
 After analyzing the modules, I executed the synthesis flow and obtained the **synthesized output**.
 
-<img width="700" height="482" alt="gvim_multiple_modules" src="https://github.com/user-attachments/assets/8a3150ce-274a-4ca3-ac47-434ab69c761f" />
+<img width="800" height="482" alt="gvim_multiple_modules" src="https://github.com/user-attachments/assets/8a3150ce-274a-4ca3-ac47-434ab69c761f" />
 
 # Hierarchical vs Flat Synthesis
 
@@ -102,7 +102,7 @@ Combine Module Logic
     Flat Netlist
 ```
 
-<img width="900" height="582" alt="flat_multiple_module" src="https://github.com/user-attachments/assets/93486c03-4627-4e7b-b950-3725471ec54c" />
+<img width="800" height="482" alt="flat_multiple_module" src="https://github.com/user-attachments/assets/93486c03-4627-4e7b-b950-3725471ec54c" />
 
 This can provide more freedom for **optimization across module boundaries**, although the original module structure becomes less visible.
 
@@ -112,7 +112,7 @@ I executed both hierarchical and flat synthesis on the same multi-module RTL des
 
 Comparing both outputs helped me understand the practical difference between **preserving module hierarchy** and **flattening the complete design**.
 
-<img width="900" height="582" alt="hier vs flat_modules" src="https://github.com/user-attachments/assets/87b4ea68-3961-45a8-a408-734ead67e910" />
+<img width="800" height="482" alt="hier vs flat_modules" src="https://github.com/user-attachments/assets/87b4ea68-3961-45a8-a408-734ead67e910" />
 
 > **Hierarchical synthesis keeps the design organized; flat synthesis gives the tool a broader view for optimization.**
 
@@ -145,7 +145,7 @@ After synthesizing my sub-module, I observed that the RTL logic was reduced to *
 
 The AND gate has **two inputs and one output**. Its output becomes `1` only when **both inputs are `1`**.
 
-<img width="900" height="482" alt="show_sub_module1" src="https://github.com/user-attachments/assets/8d962c3a-01c1-4793-8b62-960520dd0f9d" />
+<img width="800" height="482" alt="show_sub_module1" src="https://github.com/user-attachments/assets/8d962c3a-01c1-4793-8b62-960520dd0f9d" />
 
 # Day 04 Summary
 
