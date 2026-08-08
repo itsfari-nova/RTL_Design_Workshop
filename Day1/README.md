@@ -90,17 +90,8 @@ gtkwave tb_good_mux.vcd
 ---
 ## Understanding the Verilog Design
 2:1 Multiplexer Implementation (good_mux.v)
-```
-module good_mux (input i0, input i1, input sel, output reg y);
-always @ (*)
-begin
-    if(sel)
-        y <= i1;
-    else 
-        y <= i0;
-end
-endmodule
-```
+
+<img width="700" height="582" alt="image" src="https://github.com/user-attachments/assets/9a989a06-5c91-4d15-ac95-11409c6b17ad" />
 
 | Signal | Type | Description |
 |--------|------|-------------|
@@ -110,21 +101,6 @@ endmodule
 | `y` | Output | Final output signal carrying the selected input data |
 
 ---
-
-## Selection Operation
-
-```
-             sel
-              |
-              ↓
-
-        +-------------+
- i0 --->|             |
-        |   2:1 MUX   |-----> y
- i1 --->|             |
-        +-------------+
-
-```
 
 ### Output Logic
 
