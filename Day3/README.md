@@ -57,7 +57,6 @@ I opened and examined the **AND0 cell** to understand how a simple logic functio
 ```
 <img width="900" height="582" alt="and0" src="https://github.com/user-attachments/assets/7529da0f-f1e8-456f-ae02-4b179f83580a" />
 
----
 # Summary
 
 Day 03 gave me a practical introduction to **`.lib` files and standard-cell libraries**. I explored the SKY130 library using GVim and opened the `sky130_fd_sc_hd__tt_025C_1v80.lib` file to understand what information is available inside a real cell library. I explored the **AND cell** and learned that a standard cell is more than just a logic function — it also has important characteristics related to **power, voltage, and timing**. This helped me connect the simple logic I write in RTL with the real hardware cells used during synthesis and implementation. Overall, today helped me take one more step from **logical design toward understanding real hardware.** 
