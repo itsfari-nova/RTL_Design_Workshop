@@ -1,8 +1,8 @@
-# Day 05 • Hierarchical vs Flat Synthesis & Multi-Module RTL
+# Day 04 • Hierarchical vs Flat Synthesis & Multi-Module RTL
 
 > **"One module shows the logic. Multiple modules reveal the architecture."** 🔗
 
-Welcome to **Day 05** of my RTL Design journey! 👋
+Welcome to **Day 04** of my RTL Design journey! 👋
 
 Today, I explored **multi-module RTL designs**, learned how to trace **sub-modules**, and understood how hierarchy connects different blocks together.
 
@@ -147,7 +147,7 @@ The AND gate has **two inputs and one output**. Its output becomes `1` only when
 
 <img width="900" height="482" alt="show_sub_module1" src="https://github.com/user-attachments/assets/8d962c3a-01c1-4793-8b62-960520dd0f9d" />
 
-# Day 05 Summary
+# Day 04 Summary
 
 Today, I explored **multiple RTL modules, sub-modules, and module hierarchy** using GVim and Yosys. I synthesized the design and observed how the RTL was transformed into logic gates.
 
@@ -155,9 +155,10 @@ I also executed **hierarchical and flat synthesis** side by side and compared ho
 
 The most interesting observation was seeing a simple sub-module reduce to a **single AND gate** after synthesis — connecting the RTL description directly to the hardware it represents.
 
+---
 <div align="center">
 
-### ⭐ Day 05 Complete
+### ⭐ Day 04 Complete
 
 > **“From a module on the screen to a gate in hardware — the hierarchy finally came alive.”** 
 
