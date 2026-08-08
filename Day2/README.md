@@ -29,7 +29,7 @@ As a hands-on experiment, I synthesized the **`good_mux` 2:1 multiplexer** from 
 
 Day 02 focused on understanding the transition from **RTL description to hardware implementation**.
 
-### RTL Design
+## RTL Design
 
 **RTL (Register Transfer Level)** is a behavioral representation of the required digital hardware.
 
@@ -45,7 +45,7 @@ RTL can describe:
 - Reset signals
 - Data transfer
 
-### Yosys — The Synthesis Tool
+## Yosys — The Synthesis Tool
 
 **Yosys** is an open-source synthesis framework used to process Verilog RTL and convert it into a synthesized hardware representation or netlist.
 
@@ -70,7 +70,7 @@ The important concept I learned is:
 
 ---
 
-###  .lib — Standard Cell Library
+##  .lib — Standard Cell Library
 
 A **`.lib` file**, commonly called a Liberty file, contains information about standard cells available for synthesis and implementation.
 
@@ -89,7 +89,7 @@ However, a library does not necessarily contain only one implementation of each 
 
 ---
 
-### Different Cell Flavors?
+## Different Cell Flavors?
 
 One important concept I learned was that **the same logical function can have multiple cell flavors**.
 
