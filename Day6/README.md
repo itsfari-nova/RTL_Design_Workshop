@@ -123,6 +123,8 @@ RTL provides a clear description of hardware functionality, while synthesis tool
 
 <div align="center">
 
+### ⭐ Day 06 Complete
+
 > **"From a simple equation to a smarter circuit — optimization makes the difference."** 
 
 </div>
