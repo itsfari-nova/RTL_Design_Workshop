@@ -1,4 +1,4 @@
-# Day 06 — Interesting Optimization
+# Day 06 • Interesting Optimizations
 
 > ### **“Good RTL describes the function. Smart RTL lets synthesis discover the simplest hardware.”**
 
@@ -19,7 +19,6 @@ The main focus was to understand how **Yosys analyzes arithmetic operations writ
 - Synthesized logic visualization
 - Netlist exploration
 - Summary
-
 ---
 
 # Understanding Optimization
@@ -119,14 +118,8 @@ Synthesized Representation
 Hardware Structure
 ```
 # Summary
-🔹 RTL is a description of hardware functionality.
-🔹 Synthesis tools analyze RTL and create hardware implementations.
-🔹 Multiplication by a constant can often be optimized.
-🔹 Multiplication by 2 is equivalent to a left shift by one bit.
-🔹 A 3-bit × 3-bit multiplication can require a 6-bit output.
-🔹 Yosys provides useful visualization of synthesized hardware.
-🔹 Netlist exploration helps connect RTL code with actual hardware structures.
-🔹 Optimization can reduce unnecessary hardware complexity
+
+RTL provides a clear description of hardware functionality, while synthesis tools such as **Yosys** analyze the RTL and transform it into efficient hardware implementations. Through this experiment, I learned how **constant multiplication can be optimized**, such as multiplying by `2` being equivalent to a left shift by one bit. I also understood that a **3-bit × 3-bit multiplication can require a 6-bit output**. Exploring the synthesized schematic and netlist helped me connect the RTL code with its underlying hardware structure and understand how **optimization can reduce unnecessary hardware complexity**.
 
 <div align="center">
 
