@@ -1,4 +1,4 @@
-# Day 06 — Interesting Optimization: From Multiplication to Smart Hardware
+# Day 06 — Interesting Optimization
 
 > ### **“Good RTL describes the function. Smart RTL lets synthesis discover the simplest hardware.”**
 
@@ -127,9 +127,9 @@ Hardware Structure
 🔹 Yosys provides useful visualization of synthesized hardware.
 🔹 Netlist exploration helps connect RTL code with actual hardware structures.
 🔹 Optimization can reduce unnecessary hardware complexity
-```
+
 <div align="center">
 
-### “From a simple equation to a smarter circuit — optimization makes the difference.”
+> **"From a simple equation to a smarter circuit — optimization makes the difference."** 
 
 </div>
