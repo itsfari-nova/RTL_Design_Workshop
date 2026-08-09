@@ -44,7 +44,7 @@ The first experiment was based on multiplying a 3-bit input by the constant valu
 
 Verilog RTL
 
-<img width="1920" height="940" alt="RTL_mult_code" src="https://github.com/user-attachments/assets/1a1cfb07-a6e0-4f63-8dd4-f3f8fa77683b" />
+<img width="900" height="482" alt="RTL_mult_code" src="https://github.com/user-attachments/assets/1a1cfb07-a6e0-4f63-8dd4-f3f8fa77683b" />
 
 The RTL contains:
 ```
@@ -121,6 +121,7 @@ Hardware Structure
 
 RTL provides a clear description of hardware functionality, while synthesis tools such as **Yosys** analyze the RTL and transform it into efficient hardware implementations. Through this experiment, I learned how **constant multiplication can be optimized**, such as multiplying by `2` being equivalent to a left shift by one bit. I also understood that a **3-bit × 3-bit multiplication can require a 6-bit output**. Exploring the synthesized schematic and netlist helped me connect the RTL code with its underlying hardware structure and understand how **optimization can reduce unnecessary hardware complexity**.
 
+---
 <div align="center">
 
 ### ⭐ Day 06 Complete
