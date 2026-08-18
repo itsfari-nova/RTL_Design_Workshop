@@ -1,1 +1,1 @@
-# Day 07 • Combinational and sequential Optmizations
+# Day 07 • Combinational and Sequential Optmizations
