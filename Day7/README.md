@@ -15,7 +15,7 @@ Today, I explored how synthesis tools optimize digital circuits to reduce **area
 - Constant Propagation
 - Boolean Logic Minimization
 - Optimization of Multiple Modules
-- Yosys Optimization Commands
+- Key Learnings
 
 ---
 ## Introduction
@@ -91,6 +91,70 @@ opt_clean -purge
 
 This command removes unused cells and wires from the synthesized design.
 
+## Exploring Combinational Logic Optimization
+
+In this lab, I used **Yosys** inside **VirtualBox** to analyze how different combinational logic expressions are optimized during synthesis.
+
+The generated circuits were visualized using the **`show`** command in Yosys, which displayed the synthesized netlists in **Dot Viewer**.
+
+## Optimization 1 (`opt_check`)
+
+<img width="900" height="582" alt="opt_check_show" src="https://github.com/user-attachments/assets/1b920bde-cf15-442d-befa-858308667028" />
+
+The synthesized circuit was optimized into a **2-input AND gate**.
+
+### Observation
+
+- Inputs **`a`** and **`b`** are connected to the AND gate.
+- The output **`y`** is generated only when both inputs are equal to **1**.
+- The synthesis tool simplified the original RTL description and mapped it to a standard cell from the **SKY130 library**.
+
+### Optimized Logic
+
+```text
+y = a & b
+```
+
+---
+
+## Optimization 2 (`opt_check2`)
+
+<img width="900" height="582" alt="opt_check2_show" src="https://github.com/user-attachments/assets/f21ec320-5ae8-4515-82dd-1283ea746b1b" />
+
+The synthesized circuit was optimized into a **2-input OR gate**.
+
+### Observation
+
+- Inputs **`a`** and **`b`** are connected to the OR gate.
+- The output **`y`** becomes **1** whenever at least one input is **1**.
+- Yosys recognized the logic expression and directly mapped it to an optimized OR gate.
+
+### Optimized Logic
+
+```text
+y = a | b
+```
+
+---
+
+## Optimization 3 (`opt_check3`)
+
+<img width="900" height="582" alt="opt_check3_show" src="https://github.com/user-attachments/assets/eb0081ba-f3d8-4390-a4ea-c2e1d1f01124" />
+
+The synthesized circuit was optimized into a **3-input AND gate**.
+
+### Observation
+
+- Inputs **`a`**, **`b`**, and **`c`** are connected to a single AND gate.
+- The output **`y`** becomes **1** only when all three inputs are **1**.
+- Instead of creating multiple 2-input AND gates, the synthesis tool selected a **single 3-input standard cell**, reducing hardware complexity.
+
+### Optimized Logic
+
+```text
+y = a & b & c
+```
+
 ---
 
 ### Multiple Module Optimization
@@ -101,46 +165,6 @@ When a design contains multiple modules, synthesis can optimize them more effici
 flatten
 opt_clean -purge
 ```
-
-Flattening converts the hierarchical design into a single-level representation, allowing the optimizer to remove redundant logic across modules.
-
----
-
-### Optimization in Yosys
-
-After synthesis, Yosys can remove redundant logic using:
-
-```bash
-opt_clean -purge
-```
-
-This command removes unused cells and wires from the synthesized design.
-
----
-
----
-
-## Optimization Flow
-
-```text
-RTL Design
-     │
-     ▼
-Synthesis
-     │
-     ▼
-Constant Propagation
-     │
-     ▼
-Boolean Simplification
-     │
-     ▼
-Redundant Logic Removal
-     │
-     ▼
-Optimized Netlist
-```
-
 ---
 
 ## Key Learnings
@@ -148,8 +172,8 @@ Optimized Netlist
 - Constant values can simplify entire logic networks.
 - Boolean algebra reduces gate count.
 - Yosys automatically removes unnecessary hardware.
-- Flattening improves optimization in hierarchical designs.
-- Registers that do not affect outputs are eliminated.
+- Different RTL descriptions can produce efficient hardware implementations.
+- Logic optimization reduces unnecessary hardware while preserving functionality.
 
 ---
 
