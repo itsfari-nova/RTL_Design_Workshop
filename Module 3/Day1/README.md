@@ -1,8 +1,6 @@
-# Day 07 • Combinational Logic Optimizations
+# Day 01 • Combinational Logic Optimizations
 
 > *"Good hardware isn't just designed — it's optimized."*
-
-Welcome to **Day 07** of my RTL Design & Synthesis journey!
 
 Today, I explored how synthesis tools optimize digital circuits to reduce **area, improve performance, and eliminate unnecessary logic**.
 
@@ -179,7 +177,7 @@ opt_clean -purge
 
 <div align="center">
 
-### ⭐ Day 07 Complete
+### ⭐ Day 01 Complete
 
 *"Every unnecessary gate removed is another step toward smarter hardware."* 
 
