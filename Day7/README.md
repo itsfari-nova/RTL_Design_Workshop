@@ -1,6 +1,8 @@
-# Day 07 • Combinational and Sequential Optimizations
+# Day 07 • Combinational Logic Optimizations
 
-> *"Good hardware isn't just designed — it's optimized."* 
+> *"Good hardware isn't just designed — it's optimized."*
+
+Welcome to **Day 07** of my RTL Design & Synthesis journey!
 
 Today, I explored how synthesis tools optimize digital circuits to reduce **area, improve performance, and eliminate unnecessary logic**.
 
@@ -8,16 +10,29 @@ Today, I explored how synthesis tools optimize digital circuits to reduce **area
 
 ## Topics Covered
 
+- Introduction to Optimizations
 - Combinational Logic Optimization
-- Sequential Logic Optimization
 - Constant Propagation
 - Boolean Logic Minimization
 - Optimization of Multiple Modules
-- Optimization of Unused Sequential Logic
 - Yosys Optimization Commands
 
 ---
+## Introduction
 
+Optimization is the process of improving a digital circuit to achieve better performance while using fewer hardware resources.
+
+During **RTL synthesis**, optimization techniques are applied to simplify the logic and generate an efficient **gate-level implementation**. The synthesis tool analyzes the RTL code, removes unnecessary logic, and produces an optimized netlist without changing the original functionality of the design.
+
+### Objectives of Optimization
+
+- Reduce the number of logic gates
+- Minimize chip area
+- Lower power consumption
+- Improve circuit speed
+- Reduce propagation delay
+
+---
 ## Combinational Logic Optimization
 
 Combinational logic circuits do not contain memory elements. Their outputs depend only on the current inputs.
@@ -91,41 +106,17 @@ Flattening converts the hierarchical design into a single-level representation, 
 
 ---
 
-## Sequential Logic Optimization
+### Optimization in Yosys
 
-Sequential circuits contain memory elements such as flip-flops.
+After synthesis, Yosys can remove redundant logic using:
 
-Unlike combinational optimization, sequential optimization considers both the current inputs and the stored states.
-
----
-
-### Sequential Constant Propagation
-
-If a flip-flop receives a constant input, the synthesis tool checks whether the flip-flop is still required.
-
-In some cases, the flip-flop can be removed.
-
-In other cases, the flip-flop must remain because it still affects the circuit's behavior.
-
----
-
-### Optimization of Unused Outputs
-
-If certain registers do not contribute to the final output, the synthesis tool removes them.
-
-**Example:**
-
-A 3-bit counter might initially appear to require three flip-flops.
-
-After synthesis, the optimizer may determine that only one bit actually affects the output.
-
-As a result:
-
-```text
-3 Flip-Flops → 1 Flip-Flop
+```bash
+opt_clean -purge
 ```
 
-Unused logic is automatically eliminated.
+This command removes unused cells and wires from the synthesized design.
+
+---
 
 ---
 
