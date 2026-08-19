@@ -1,8 +1,6 @@
-# Day 06 • Interesting Optimizations
+# Day 03 • Interesting Optimizations
 
 > ### **“Good RTL describes the function. Smart RTL lets synthesis discover the simplest hardware.”**
-
-Welcome to **Day 06** of my RTL Design & Synthesis journey!
 
 Today, I explored an interesting topic in **RTL synthesis — Optimization**.
 
@@ -124,7 +122,7 @@ RTL provides a clear description of hardware functionality, while synthesis tool
 ---
 <div align="center">
 
-### ⭐ Day 06 Complete
+### ⭐ Day 03 Complete
 
 > **"From a simple equation to a smarter circuit — optimization makes the difference."** 
 
