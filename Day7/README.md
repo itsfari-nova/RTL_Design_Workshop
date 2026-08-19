@@ -10,12 +10,12 @@ Today, I explored how synthesis tools optimize digital circuits to reduce **area
 
 ## Topics Covered
 
-- Introduction to Optimizations
-- Combinational Logic Optimization
-- Constant Propagation
-- Boolean Logic Minimization
-- Optimization of Multiple Modules
-- Key Learnings
+- [Introduction to Optimizations](#-introduction-to-optimizations)
+- [Combinational Logic Optimization](#-combinational-logic-optimization)
+- [Constant Propagation](#-constant-propagation)
+- [Boolean Logic Minimization](#-boolean-logic-minimization)
+- [Optimization of Multiple Modules](#-optimization-of-multiple-modules)
+- [Key Learnings](#-key-learnings)
 
 ---
 ## Introduction
