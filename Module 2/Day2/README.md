@@ -1,8 +1,6 @@
-# Day 05 • Various Flop Coding Styles
+# Day 02 • Various Flop Coding Styles
 
 > **"A flip-flop doesn't just remember a bit — it decides exactly when that bit is allowed to change."** 
-
-Welcome to **Day 05** of my RTL Design journey!
 
 Today, I explored **Flip-Flops**, one of the fundamental building blocks of sequential digital logic.  
 The focus was on understanding **synchronous reset, asynchronous reset, asynchronous set**, their simulation behavior, and how RTL descriptions are mapped to **SKY130 standard cells** during synthesis.
@@ -241,7 +239,7 @@ Asynchronous Set   → Q = 1
 ---
 <div align="center">
 
-### ⭐ Day 05 Complete
+### ⭐ Day 02 Complete
 
 > **"From storing a bit to understanding the hardware behind it."** 
 
