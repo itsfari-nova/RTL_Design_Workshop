@@ -1,6 +1,6 @@
 # Day 02 • Sequential Logic Optimizations 
 
-> *“Good RTL is not only about functionality — it is about describing hardware that can be optimized efficiently.”* ⚙️✨
+> **"Good RTL is not only about functionality — it is about describing hardware that can be optimized efficiently."** ⚙️✨
 
 On **Day 02**, I explored **Sequential Logic Optimizations** using Yosys synthesis.
 
@@ -174,4 +174,21 @@ The GTKWave simulation shows:
 - `q1` changes from `0` to `1` after the reset is released.
 - `q` temporarily changes to `0` and then becomes `1`.
 
+# DFF Constant Optimizations — `dff_const4` & `dff_const5`
 
+<img width="900" height="582" alt="gvim_dff_const4,const5" src="https://github.com/user-attachments/assets/f1e08155-6699-4706-b336-e702b1f5c03c" />
+
+Here we can observe that:
+```text
+reset = 1  →  q1 = 1
+reset = 0  →  q1 = 1
+```
+Therefore, q1 is actually a constant value:
+```text
+q1 = 1
+```
+Since q eventually receives the value of q1, q also becomes:
+```text
+q = 1
+```
+So the sequential logic is unnecessary because the outputs can be replaced by constant logic.
