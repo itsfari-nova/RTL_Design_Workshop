@@ -2,7 +2,7 @@
 
 > **"Good RTL is not only about functionality — it is about describing hardware that can be optimized efficiently."** ⚙️✨
 
-On **Day 02**, I explored **Sequential Logic Optimizations** using Yosys synthesis.
+On **Day 02** of Module 3, I explored **Sequential Logic Optimizations** using Yosys synthesis.
 
 The main focus was to understand how synthesis tools analyze **D Flip-Flops (DFFs)**, constant signals, redundant logic and how they simplify the final hardware implementation.
 
@@ -12,7 +12,7 @@ The main focus was to understand how synthesis tools analyze **D Flip-Flops (DFF
 - [Introduction to Sequential Logic](#-introduction-to-sequential-logic)
 - [DFF Constant Optimization (`dff_const`)](#-dff-constant-optimization-dff_const)
 - [Yosys Synthesis & Optimization](#-yosys-synthesis--optimization)
-  
+- [Key Takeways](#-key-takeaways) 
 ---
 ## Introduction to Sequential Logic
 
@@ -53,7 +53,7 @@ CLK│   DFF   │───► Q
 - The **D input is effectively a constant `1`**.
 - Therefore, although the D input is constant, the flip-flop **cannot be completely removed** because the asynchronous reset still controls the output.
 
-## Synthesized Hardware
+### Synthesized Hardware
 
 After synthesis, Yosys mapped the design to a SKY130 flip-flop:
 
@@ -67,7 +67,7 @@ The synthesized circuit contains:
 - **Clock connection** for positive-edge triggering
 - **Output `q`**
 
-## GTKWave Simulation `dff_const1`
+### GTKWave Simulation `dff_const1`
 
 The GTKWave simulation shows:
 
@@ -104,7 +104,7 @@ The value of clk and reset does not actually affect the final value of q.
 
 So, the DFF is unnecessary and can be completely removed during synthesis.
 
-## Optimization of `dff_const2`
+### Optimization of `dff_const2`
 
 Yosys recognizes that `q` is always constant:
 
@@ -117,7 +117,7 @@ The synthesized design no longer requires a DFF.
 
 The clock and reset become unused because neither signal can change the value of q.
 
-## GTKWave Simulation `dff_const2`
+### GTKWave Simulation `dff_const2`
 
 The GTKWave simulation shows:
 
@@ -148,7 +148,7 @@ The design contains two sequential signals:
 
 Therefore, after reset is released, the output changes through the following sequence:
 
-## Synthesized Netlist
+### Synthesized Netlist
 
 After synthesis using Yosys, the design is mapped to two SKY130 flip-flop cells.
 
@@ -163,7 +163,7 @@ After synthesis using Yosys, the design is mapped to two SKY130 flip-flop cells.
 
 Unlike `dff_const2`, the sequential elements **cannot be completely removed**, because the output `q` depends on the **stored state of `q1`**.
 
-## GTKWave Simulation `dff_const3`
+### GTKWave Simulation `dff_const3`
 
 The GTKWave simulation shows:
 
@@ -174,7 +174,7 @@ The GTKWave simulation shows:
 - `q1` changes from `0` to `1` after the reset is released.
 - `q` temporarily changes to `0` and then becomes `1`.
 
-# DFF Constant Optimizations — `dff_const4` & `dff_const5`
+## 4.DFF Constant Optimizations — `dff_const4` & `dff_const5`
 
 <img width="900" height="582" alt="gvim_dff_const4,const5" src="https://github.com/user-attachments/assets/f1e08155-6699-4706-b336-e702b1f5c03c" />
 
@@ -192,3 +192,103 @@ Since q eventually receives the value of q1, q also becomes:
 q = 1
 ```
 So the sequential logic is unnecessary because the outputs can be replaced by constant logic.
+
+### Synthesized Design
+
+The synthesized design shows that Yosys recognizes the **constant behavior** and removes the **unnecessary sequential logic**.
+
+<img width="900" height="582" alt="dff_const4_show" src="https://github.com/user-attachments/assets/c674197d-682a-47bc-b56b-abed456bf094" />
+
+There is no need for the original DFF structure because the outputs do not depend on the clock for their final value.
+
+### Waveform Observation
+
+The waveform confirms the optimization behavior:
+
+<img width="900" height="582" alt="tb_dff_const4" src="https://github.com/user-attachments/assets/3aa46629-b818-43b6-911a-2a728c7847de" />
+
+- `clk` continues toggling throughout the simulation.
+- `reset` changes during the simulation.
+- `q1` remains at logic **`1`**.
+- `q` also remains at logic **`1`**.
+- The output does not depend on the clock after optimization.
+
+### Output Behavior
+
+```text
+reset = 1  →  q1 = 1, q = 1
+
+reset = 0  →  q1 = 1, q = 1
+```
+## `dff_const5`
+
+In `dff_const5`, the reset condition assigns both signals to `0`, while during normal operation `q1` becomes `1` and `q` follows `q1`.
+
+```verilog
+if(reset)
+begin
+    q  <= 1'b0;
+    q1 <= 1'b0;
+end
+else
+begin
+    q1 <= 1'b1;
+    q  <= q1;
+end
+```
+Here, q1 does not have the same constant value in both conditions.
+
+```text
+reset = 1  →  q1 = 0
+reset = 0  →  q1 = 1
+```
+Therefore, q1 depends on the reset condition.
+
+Also:
+
+```text
+q = q1
+```
+
+So the value of q depends on the sequential behavior of q1.
+
+### Synthesized Design
+
+The synthesized design contains two DFFs connected in sequence.
+
+<img width="900" height="582" alt="dff_const5_show" src="https://github.com/user-attachments/assets/14f77305-b7b4-46ee-b677-ba77192bf6a7" />
+
+The first flip-flop generates q1, and the second flip-flop stores the value of q1.
+
+Because q depends on the previous sequential value of q1, the DFF structure cannot simply be removed.
+
+### Waveform Observation
+
+The dff_const5 waveform shows:
+
+<img width="900" height="582" alt="tb_dff_cont5" src="https://github.com/user-attachments/assets/293afaca-57ab-4c55-b0a5-cae15f3caed8" />
+
+1. `clk` continues toggling.
+2. `reset` is initially active.
+3. During reset, `q` remains at **`0`**.
+4. After reset is released, `q` changes to **`1`**.
+5. The output transition occurs according to the **sequential behavior of the flip-flops**.
+
+## Key Takeaways
+
+- **Constant propagation** allows Yosys to identify signals that always evaluate to a fixed value.
+- In `dff_const1`, the D input is constant, but the **asynchronous reset keeps the DFF necessary**.
+- In `dff_const2`, both reset and normal-operation branches assign `q = 1`, so the **entire DFF can be removed**.
+- `dff_const3` demonstrates that **sequential dependencies matter** — `q` depends on the previous value of `q1`, so the DFFs must be preserved.
+- In `dff_const4`, `q1` is constant in both reset and normal operation, allowing Yosys to **eliminate the unnecessary sequential logic**.
+- `dff_const5` shows that when a signal changes based on reset, it **cannot be treated as a constant**.
+- The key lesson is that **small changes in RTL can lead to significantly different synthesized hardware**.
+
+---
+<div align="center">
+
+### ⭐ Day02 Complete
+
+> **"Every bit has a purpose. Every flip-flop has a story. Synthesis decides what stays."** 
+
+</div>
