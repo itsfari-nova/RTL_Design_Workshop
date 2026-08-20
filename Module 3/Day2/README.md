@@ -133,3 +133,46 @@ The `dff_const2` waveform shows that:
 This demonstrates that the output does not depend on the sequential elements anymore.
 
 > Even though the clock and reset signals are active, `q` remains constant at `1`, allowing the DFF to be removed during synthesis.
+
+## 3. `dff_const3` 
+
+In `dff_const3`, I explored a design containing **two sequential elements**, `q` and `q1`, with an asynchronous reset.
+
+<img width="900" height="582" alt="gvim_dff_cont3" src="https://github.com/user-attachments/assets/d58205fd-e793-4b49-9405-3e1f3d2a0969" />
+
+The design contains two sequential signals:
+
+- `q1` is set to `0` when `reset = 1`.
+- `q` is set to `1` when `reset = 1`.
+- When `reset = 0`, `q1` becomes `1` on the next positive clock edge.
+- `q` receives the **previous value of `q1`** because non-blocking assignments are used.
+
+Therefore, after reset is released, the output changes through the following sequence:
+
+## Synthesized Netlist
+
+After synthesis using Yosys, the design is mapped to two SKY130 flip-flop cells.
+
+<img width="900" height="582" alt="dff_const3_show" src="https://github.com/user-attachments/assets/367b431e-c2fb-40c7-866b-f41298eaaa87" />
+
+- One **DFF** for `q1`
+- One **DFF** for `q`
+- Constant `1'b1` connected to the **D input** of the first DFF
+- `q1` connected to the **D input** of the second DFF
+- **Reset control logic**
+- **Clock connections**
+
+Unlike `dff_const2`, the sequential elements **cannot be completely removed**, because the output `q` depends on the **stored state of `q1`**.
+
+## GTKWave Simulation `dff_const3`
+
+The GTKWave simulation shows:
+
+<img width="900" height="582" alt="tb_dff_const3" src="https://github.com/user-attachments/assets/2f1f8b0d-2642-44bd-b661-d8f6d31b27a6" />
+
+- `clk` continuously toggling.
+- `reset` initially active and later released.
+- `q1` changes from `0` to `1` after the reset is released.
+- `q` temporarily changes to `0` and then becomes `1`.
+
+
