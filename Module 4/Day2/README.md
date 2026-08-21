@@ -15,6 +15,9 @@ I also explored the **caveats of using blocking statements in sequential logic**
 - **Blocking Assignments (`=`)**
 - **Non-Blocking Assignments (`<=`)**
 - **Caveats with Blocking Statements**
+- **Simulation Mismatch (bad_mux)**
+- **RTL vs. GLS Mismatch: Blocking Assignment Caveat (blocking_caveat)**
+- **Key Takeaways**
 
 ## 1. Synthesis–Simulation Mismatch
 
@@ -139,9 +142,19 @@ Behavioral Impact: During RTL simulation, $d$ always uses $x$'s stale value from
 - There is **no RTL statement-order dependency**.
 - The GLS waveform therefore shows the **optimized hardware behavior**.
 
-### Key Observation
+## Key Takeaways
 
-> **RTL waveform → behavioral statement-order effect**  
-> **GLS waveform → actual synthesized hardware behavior**
+- **Blocking assignments (`=`)** execute statements sequentially within the same procedural block.
+- Statement order can cause **simulation-only dependencies** and unexpected RTL behavior.
+- RTL simulation may use a **stale intermediate value**, while synthesis can optimize the logic differently.
+- **Yosys synthesis** focuses on the actual combinational logic rather than the procedural statement order.
+- **GLS** helps verify whether the synthesized hardware behavior matches the intended RTL behavior.
+- Careful RTL coding is essential to avoid **Synthesis–Simulation Mismatch**.
 
-This difference clearly demonstrates the **Synthesis–Simulation Mismatch** caused by improper blocking-assignment usage.
+---
+
+<div align="center">
+
+> **"From RTL to gates — understanding the mismatch between simulation and synthesis."**
+
+</div>
