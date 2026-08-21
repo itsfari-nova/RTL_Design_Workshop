@@ -130,6 +130,9 @@ Behavioral Impact: During RTL simulation, $d$ always uses $x$'s stale value from
 - This creates a visible **delay/mismatch** in the RTL waveform.
 
 ### Gate-Level Simulation — GTKWave
+
+<img width="900" height="582" alt="tb_blocking_caveat_GLS" src="https://github.com/user-attachments/assets/2ad596ab-cd35-45b2-ab68-af846d6f5d0b" />
+
 - The synthesized gate directly implements:
   **`d = (a | b) & c`**
 - When **`a`**, **`b`**, or **`c`** changes, `d` responds according to the actual gate logic.
