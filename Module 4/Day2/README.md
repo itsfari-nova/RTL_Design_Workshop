@@ -155,6 +155,8 @@ Behavioral Impact: During RTL simulation, $d$ always uses $x$'s stale value from
 
 <div align="center">
 
+### ⭐ Day 03 Complete 
+
 > **"From RTL to gates — understanding the mismatch between simulation and synthesis."**
 
 </div>
