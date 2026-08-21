@@ -28,7 +28,6 @@ This can happen because of incorrect RTL coding styles, incomplete assignments, 
 
 > **💡 Simulation shows what the RTL does; synthesis reveals what hardware is actually built.**
 
----
 ## 2. Blocking Assignments (`=`)
 
 A **blocking assignment** updates the left-hand side immediately within the procedural block.
