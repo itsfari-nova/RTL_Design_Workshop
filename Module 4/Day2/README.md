@@ -19,6 +19,7 @@ I also explored the **caveats of using blocking statements in sequential logic**
 - [RTL vs. GLS Mismatch: Blocking Assignment Caveat (`blocking_caveat`)](#rtl-vs-gls-mismatch-blocking-assignment-caveat-blocking_caveat)
 - [Key Takeaways](#key-takeaways)
 
+---
 ## 1. Synthesis–Simulation Mismatch
 
 Synthesis–simulation mismatch occurs when the behavior observed during **RTL simulation** does not match the behavior of the **synthesized hardware**.
