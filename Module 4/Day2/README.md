@@ -11,13 +11,13 @@ I also explored the **caveats of using blocking statements in sequential logic**
 ---
 ## What I Explored
 
-- **Synthesis–Simulation Mismatch**
-- **Blocking Assignments (`=`)**
-- **Non-Blocking Assignments (`<=`)**
-- **Caveats with Blocking Statements**
-- **Simulation Mismatch (bad_mux)**
-- **RTL vs. GLS Mismatch: Blocking Assignment Caveat (blocking_caveat)**
-- **Key Takeaways**
+- [Synthesis–Simulation Mismatch](#synthesis-simulation-mismatch)
+- [Blocking Assignments (`=`)](#blocking-assignments)
+- [Non-Blocking Assignments (`<=`)](#non-blocking-assignments)
+- [Caveats with Blocking Statements](#caveats-with-blocking-statements)
+- [Simulation Mismatch (`bad_mux`)](#simulation-mismatch-bad_mux)
+- [RTL vs. GLS Mismatch: Blocking Assignment Caveat (`blocking_caveat`)](#rtl-vs-gls-mismatch-blocking-assignment-caveat-blocking_caveat)
+- [Key Takeaways](#key-takeaways)
 
 ## 1. Synthesis–Simulation Mismatch
 
