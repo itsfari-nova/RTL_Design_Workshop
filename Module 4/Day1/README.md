@@ -178,7 +178,7 @@ Therefore, the synthesized gate-level implementation produces the expected funct
 
 <div align="center">
 
-### ⭐ Day 03 Complete ⭐
+### ⭐ Day 03 Complete 
 
 > **From RTL Intent to Gate-Level Reality — GLS closes the gap between design and hardware.**
 
