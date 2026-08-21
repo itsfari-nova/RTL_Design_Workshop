@@ -121,6 +121,8 @@ Line 5 (x = a | b;): $x$ is updated after $d$ has already been computed.
 
 Behavioral Impact: During RTL simulation, $d$ always uses $x$'s stale value from the previous evaluation trigger, introducing a 1-cycle/evaluation-event delay for changes in $a$ or $b$.
 
+<img width="900" height="582" alt="blocking_caveat_show" src="https://github.com/user-attachments/assets/ddd135d5-cff7-41f9-b489-d75881d1f3e3" />
+
 ## Waveform Comparison
 
 ### RTL Simulation — GTKWave
