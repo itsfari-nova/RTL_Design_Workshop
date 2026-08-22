@@ -159,10 +159,17 @@ y = a & b & c
 
 When a design contains multiple modules, synthesis can optimize them more efficiently after flattening.
 
+<img width="900" height="582" alt="multiple_module_opt_show" src="https://github.com/user-attachments/assets/ebb01538-caaa-4d94-87c8-32a2495ea3ab" />
+
 ```bash
 flatten
 opt_clean -purge
 ```
+
+multiple_modules_opt helps demonstrate that synthesis is not simply a direct translation of every Verilog statement into gates.
+
+multiple_modules_opt shows how Yosys can analyze a multi-module RTL design and optimize its logic while maintaining the same intended functionality.
+
 ---
 
 ## Key Learnings
