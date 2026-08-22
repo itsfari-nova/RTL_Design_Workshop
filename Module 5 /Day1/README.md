@@ -447,9 +447,9 @@ In this experiment, I explored how **`case` conditions are translated into hardw
 
 <div align="center">
 
-⭐ Day01 Complete
+### ⭐ Day 01 Complete
 
-### **From `case` conditions to real gates — complete assignments keep the logic combinational, while incomplete paths can make hardware remember.**
+> **From `case` conditions to real gates — complete assignments keep the logic combinational, while incomplete paths can make hardware remember.**
 
 </div>
 
