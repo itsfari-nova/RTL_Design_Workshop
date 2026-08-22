@@ -166,6 +166,13 @@ Check: `203 + 92 = 295 = 0x127` — matches exactly, confirming the RCA is funct
 - **RCA correctness confirmed by math**: `0xCB + 0x5C = 0x127` matched the waveform.
 
 ---
+<div align="center">
+
+### ⭐ Day 02 Complete 
+
+> **"RTL doesn't forgive ambiguity — it synthesizes it into a latch and ships it as a "feature."**
+
+</div>
 
 
 
