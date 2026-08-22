@@ -59,6 +59,8 @@ if conditions are commonly used for:
 🔹 Implementing control logic
 🔹 Describing sequential behavior inside clocked blocks
 
+---
+
 ## Incomplete `if` — `incomp_if`
 
 ### RTL Code
