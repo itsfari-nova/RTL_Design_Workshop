@@ -26,7 +26,7 @@ Synthesis–simulation mismatch occurs when the behavior observed during **RTL s
 
 This can happen because of incorrect RTL coding styles, incomplete assignments, improper use of blocking/non-blocking statements, or simulation constructs that do not represent real hardware.
 
-> **💡 Simulation shows what the RTL does; synthesis reveals what hardware is actually built.**
+> **Simulation shows what the RTL does; synthesis reveals what hardware is actually built.**
 
 ## 2. Blocking Assignments (`=`)
 
@@ -53,7 +53,7 @@ Both assignments use the values that existed before the clocked block updates th
 
 Non-blocking assignments are therefore commonly used for flip-flops, registers, and other sequential logic.
 
-> **"💡 Non-blocking assignments help RTL model simultaneous state updates in clocked hardware."**
+> **"Non-blocking assignments help RTL model simultaneous state updates in clocked hardware."**
 
 ## 4. Caveats with Blocking Statements
 
@@ -67,8 +67,10 @@ Use blocking (=) mainly for combinational logic.
 Use non-blocking (<=) mainly for sequential logic.
 Avoid careless mixing of assignment types in the same procedural block.
 "**
-> **"✨ The right assignment style keeps RTL behavior predictable — from simulation to synthesized hardware."**
-> **💡 Simulation shows what the RTL does; synthesis reveals what hardware is actually built.**
+> **"The right assignment style keeps RTL behavior predictable — from simulation to synthesized hardware."**
+> **Simulation shows what the RTL does; synthesis reveals what hardware is actually built.**
+
+---
 
 ## Simulation Mismatch (bad_mux)
 
