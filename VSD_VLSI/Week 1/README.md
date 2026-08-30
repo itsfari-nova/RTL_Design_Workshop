@@ -66,13 +66,5 @@ Post-Synthesis Simulation
  ↓
 Waveform Analysis
 ```
-# 🟩 WEEK 02 — VLSI Design Flow
 
-## 📚 Sessions 02 & 03 — From Specification to Silicon
-
-The second and third sessions focused on understanding the **complete VLSI design flow**.
-
-A VLSI chip passes through multiple stages before it becomes a physical chip.
-
----
 
