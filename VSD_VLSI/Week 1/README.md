@@ -66,5 +66,9 @@ Post-Synthesis Simulation
  ↓
 Waveform Analysis
 ```
+## Generated Waveform
+
+<img width="900" height="582" alt="image" src="https://github.com/user-attachments/assets/2baef662-11dd-49da-a697-8508a6d14cbe" />
+
 
 
