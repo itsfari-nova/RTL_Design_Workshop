@@ -71,4 +71,41 @@ Waveform Analysis
 <img width="900" height="582" alt="image" src="https://github.com/user-attachments/assets/2baef662-11dd-49da-a697-8508a6d14cbe" />
 
 
+<img width="900" height="582" alt="image" src="https://github.com/user-attachments/assets/576fc204-db30-454b-a384-871398736fdf" />
 
+## Understanding the KLayout Window
+
+### Main Layout Area
+
+The large central area displays the **physical geometry of the chip**.
+
+The different shapes and patterns represent the **components, connections, and structures** created during the physical design process.
+
+### Layers Panel
+
+The panel on the right displays the different **SKY130A technology layers**.
+
+Each layer is represented using different colors and patterns, making it easier to identify various physical structures.
+
+### Cells Panel
+
+The panel on the left displays the **cell hierarchy** of the GDS design.
+
+It helps in navigating and exploring the different **cells and blocks** present in the physical layout.
+
+A short demonstration of exploring the physical layout using **KLayout** and the **SKY130A** technology.
+
+📹 **KLayout Layout Demo:**  
+[▶️ Watch the Video](./micro.mp4)
+
+## SKY130A Technology
+
+The **SKY130A PDK** provides the technology information required to design and visualize circuits using the **SkyWater 130 nm process**.
+
+It contains information about:
+
+- Standard cells
+- Physical layers
+- Design rules
+- Layer definitions
+- Technology-specific parameters
