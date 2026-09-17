@@ -1,4 +1,4 @@
-# PYSICAL DESIGN MODULE 2
+# PYSICAL DESIGN MODULE-2
 ## Chip Floorplanning and Power Integrity
 
 ## Overview
@@ -222,3 +222,10 @@ Running the placement stage next produces a denser, gate-level view of the same 
 - ✅ Understood Clock Tree Synthesis as building a balanced buffer tree to minimize clock skew across flip-flops.
 - ✅ Went one level below the standard-cell abstraction: how a cell itself is designed, from PDK inputs and SPICE characterization through Euler's-path-driven stick diagrams to DRC/LVS-clean layout.
 - ✅ Ran the OpenLane flow's floorplan and placement stages on `picorv32a`, inspecting the resulting DEF files and layouts directly in Magic.
+
+## 👤 Author
+
+**Shaik Farida**  
+B.Tech – Electronics & Communication Engineering  
+Anurag University  
+[RTL Workshop Repository](https://github.com/itsfari-nova/RTL_Design_Workshop)
