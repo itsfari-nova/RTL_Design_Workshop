@@ -1,4 +1,7 @@
-## 📖 Overview
+# PYSICAL DESIGN MODULE 2
+## Chip Floorplanning and Power Integrity
+
+## Overview
 
 This module moves from synthesized gate-level netlists into the **physical design** stages of the ASIC flow: taking a netlist and turning it into a manufacturable layout. It covers the theory behind chip floorplanning (core/die, utilization, preplaced cells, power planning, decoupling capacitors, pin placement), the placement and optimization steps that follow, the basics of library characterization (NLDM/CCS timing) that make timing-driven placement possible, an introduction to clock tree synthesis, and — one level below all of it — how the standard cells themselves are designed, from Euler's paths and stick diagrams down to SPICE-level characterization. A hands-on run of the OpenLane flow on the `picorv32a` design ties the theory to real floorplan, placement, and DRC output.
 
@@ -8,7 +11,7 @@ This module moves from synthesized gate-level netlists into the **physical desig
 | 🧩 **Example design** | `picorv32a` (RISC-V core) |
 | 📋 **Prerequisites** | Module-1 (synthesis flow), basic familiarity with standard-cell libraries |
 
-## 📑 Table of Contents
+## Table of Contents
 
 - 1. Chip Floorplanning
   - 1.1 Core and Die
