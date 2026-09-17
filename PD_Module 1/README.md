@@ -1,7 +1,5 @@
-# PHYSICAL DESIGN Module-1
-## Complete ASIC Physical Design Flow using OpenLane and and SKY130
-
-## Project Overview
+# PHYSICAL DESIGN MODULE-1
+## ASIC Physical Design Flow using OpenLane and and SKY130
 
 This project presents the implementation of a digital design using the **ASIC PPHYSICAL DESIGNhysical Design flow** with **OpenLane** and the **SkyWater SKY130 PDK**.
 
@@ -42,6 +40,7 @@ The objectives of this project are:
 
 # 📑 Table of Contents
 
+- Introduction
 - 1 - Floorplanning
 - 2 - Power Planning
 - 3 - Placement
@@ -98,6 +97,47 @@ Final Layout
 ```
 
 Each stage has a specific role in converting the synthesized design into a physically valid layout.
+
+## 1️⃣ From Software to Hardware
+
+Before getting into ASIC-specific tools, it helps to place chip design inside the bigger picture of how any program eventually runs on hardware. Application software and system software both eventually reduce to instructions a compiler and assembler turn into binary — and that binary only means something because a specific piece of hardware was built to understand it.
+
+<img width="900" height="582" alt="Screenshot 2026-09-06 121236" src="https://github.com/user-attachments/assets/2a1731e8-68f1-4f06-b809-d4c72ffbe345" />
+
+The same idea applies directly to RISC-V: a C program is cross-compiled and assembled into RISC-V machine code, and that machine code only runs correctly because a specific RTL implementation (like `picorv32`) was built, synthesized, and laid out in silicon to execute exactly that instruction set.
+
+<img width="900" height="582" alt="Screenshot 2026-09-06 121104" src="https://github.com/user-attachments/assets/c913b93e-0bce-4574-b643-d12e14b4bc40" />
+
+Zooming into a single instruction makes the chain explicit: an instruction like `add x6, x10, x6` is defined by the Instruction Set Architecture (the "architecture" of the computer), assembled into binary, and that same binary can be traced forward into a synthesized gate-level netlist and finally a physical layout that implements exactly that operation.
+
+<img width="900" height="582" alt="Screenshot 2026-09-06 121313" src="https://github.com/user-attachments/assets/115e9fb5-5cdb-47fa-acde-d3797bbae3a7" />
+
+---
+
+## 2️⃣ Open-Source Digital ASIC Design 
+
+An ASIC comes together from three ingredients: **RTL designs** (the logic itself, often sourced from places like librecores.org, opencores.org, or GitHub), **EDA tools** (Qflow, OpenROAD, OpenLANE) that turn that RTL into a manufacturable layout, and **PDK data** describing the target fabrication process.
+
+<img width="900" height="582" alt="Screenshot 2026-09-06 121434" src="https://github.com/user-attachments/assets/82987169-5594-47f0-84fd-a8d47743f01f" />
+
+---
+
+## 3️⃣ What is a PDK?
+
+In the early era of chip design, IC design was tightly coupled to whatever manufacturing process a given company had access to — whoever controlled the physics controlled the creative agenda. Lynn Conway and Carver Mead changed this by pioneering a **structured design methodology** based on λ-based design rules, which separated *design* from *technology* for the first time. That separation is what eventually made **Pure Play Fabs** (companies that only manufacture) and **Fabless design companies** (companies that only design) possible as distinct business models.
+
+<img width="900" height="582" alt="Screenshot 2026-09-06 121500" src="https://github.com/user-attachments/assets/afe27646-ceea-4ba6-b805-a490ae529bf1" />
+
+A **Process Design Kit (PDK)** is the practical result of that separation — a collection of files that models a specific fabrication process for the EDA tools used to design an IC. It typically includes:
+
+- Process design rules (DRC, LVS, PEX)
+- Device models
+- Digital standard-cell libraries
+- I/O libraries
+
+
+---
+
 ## 1. Floorplanning
 Floorplanning is the first major stage of physical design.
 It defines the physical dimensions of the core and die and determines how the design will be organized inside the available area.
@@ -115,7 +155,7 @@ The floorplan configuration is controlled using the OpenLane configuration and f
 
 
 
-<img width="1792" height="971" alt="Screenshot (92)" src="https://github.com/user-attachments/assets/ac0877fb-b69b-4be6-983e-550a19eb3485" />
+<img width="900" height="582" alt="Screenshot (92)" src="https://github.com/user-attachments/assets/ac0877fb-b69b-4be6-983e-550a19eb3485" />
 
 ## 2. Power Planning
 
@@ -130,7 +170,7 @@ The PDN provides reliable connections for:
 
 Proper power planning is important for reliable operation of the implemented design.
 
-<img width="1790" height="906" alt="Screenshot (93)" src="https://github.com/user-attachments/assets/0d50ac3f-e9c5-43fe-a05e-23882d779087" />
+<img width="900" height="582" alt="Screenshot (93)" src="https://github.com/user-attachments/assets/0d50ac3f-e9c5-43fe-a05e-23882d779087" />
 
 
 ---
