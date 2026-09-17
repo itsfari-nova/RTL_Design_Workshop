@@ -1,4 +1,4 @@
-# PYSICAL DESIGN MODULE-2
+# PHYSICAL DESIGN MODULE-2
 ## Chip Floorplanning and Power Integrity
 
 ## Overview
