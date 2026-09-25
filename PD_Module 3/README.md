@@ -924,7 +924,7 @@ Thus, the module successfully demonstrated the complete **RTL-to-physical-design
 
 ## 👤 Author
 
-**Amrutha Madapa**  
+**Shaik Farida**  
 B.Tech – Electronics & Communication Engineering  
 Anurag University  
-[RTL Workshop Repository](https://github.com/madapaamrutha-svg/RTL_Workshop)
+[RTL Workshop Repository](https://github.com/itsfari-nova/RTL_Design_Workshop)
