@@ -988,7 +988,6 @@ Therefore, clock-tree design must consider:
 * Setup timing
 * Hold timing
 
-The goal is not simply to create a clock tree, but to create a clock network that works correctly with the **data paths and timing constraints of the entire design**.
 ---
 #  Conclusion
 
@@ -999,3 +998,6 @@ The module progressed from **standard-cell LEF and timing-library preparation** 
 The module then introduced **Clock Tree Synthesis using TritonCTS**, including clock buffering, H-Tree concepts, clock skew, crosstalk, shielding, and CTS verification. Finally, **real-clock setup and hold analysis** was performed using OpenSTA to understand the impact of the physical clock network on overall timing.
 
 Overall, this module demonstrated how **standard-cell timing, synthesis, clock distribution, and physical implementation are closely connected in achieving timing closure** and provided a strong foundation for advanced physical-design and RTL-to-GDSII workflows.
+
+```
+
