@@ -96,10 +96,8 @@ The simulation setup is important because the accuracy of the output waveform an
 The next stage involves configuring the simulation environment and defining the required transistor parameters. The width-to-length ratio of the PMOS and NMOS devices has a direct effect on the switching behavior of the inverter.
 
 The selected dimensions determine the relative drive strengths of the pull-up and pull-down networks. Proper sizing is required to obtain balanced rise and fall characteristics.
-<img width="1920" height="1080" alt="Screenshot (145)" src="https://github.com/user-attachments/assets/49059bca-d76c-4928-a2fa-280ebf9307f5" />
+<img width="900" height="582" alt="Screenshot (145)" src="https://github.com/user-attachments/assets/49059bca-d76c-4928-a2fa-280ebf9307f5" />
 
-
-**Figure 2: Device parameters and simulation configuration**
 
 The parameters specified here are later used by SPICE to calculate the transient response and voltage-transfer characteristics of the CMOS inverter.
 
@@ -110,11 +108,8 @@ The parameters specified here are later used by SPICE to calculate the transient
 After defining the circuit and device parameters, the SPICE simulation is executed. The simulator solves the electrical behavior of the inverter as the input voltage changes with time.
 
 The input signal is applied to the common gate terminal of the PMOS and NMOS transistors. Depending on the input voltage, one transistor turns ON while the other turns OFF, producing the inverted output.
-<img width="1920" height="1080" alt="Screenshot (146)" src="https://github.com/user-attachments/assets/939cf014-7cdb-481e-9814-b36432bc3de8" />
+<img width="900" height="582" alt="Screenshot (146)" src="https://github.com/user-attachments/assets/939cf014-7cdb-481e-9814-b36432bc3de8" />
 
-
-
-**Figure 3: Execution of CMOS inverter SPICE simulation**
 
 This step verifies that the inverter operates correctly before detailed timing and static characterization are performed.
 
@@ -125,11 +120,8 @@ This step verifies that the inverter operates correctly before detailed timing a
 The transient simulation produces both the input and output waveforms. The output waveform is complementary to the input waveform, demonstrating the fundamental operation of the CMOS inverter.
 
 When the input is LOW, the PMOS transistor conducts and the output is pulled towards the supply voltage. When the input becomes HIGH, the NMOS transistor conducts and the output is pulled towards ground.
-<img width="1920" height="1080" alt="Screenshot (147)" src="https://github.com/user-attachments/assets/f5eef6f2-4ef7-42f5-8e06-9d0101f20d30" />
+<img width="900" height="582" alt="Screenshot (147)" src="https://github.com/user-attachments/assets/f5eef6f2-4ef7-42f5-8e06-9d0101f20d30" />
 
-
-
-**Figure 4: CMOS inverter input and output waveforms**
 
 The waveform confirms the correct logical inversion operation and also provides the information required for measuring propagation delay and transition times.
 
@@ -140,10 +132,8 @@ The waveform confirms the correct logical inversion operation and also provides 
 The transient response is examined to understand how quickly the inverter responds to changes in the input signal.
 
 The transition of the output does not occur instantaneously because the transistor network and load capacitance require a finite amount of time to charge or discharge. This delay is an important performance parameter in digital circuits.
-<img width="1920" height="1080" alt="Screenshot (148)" src="https://github.com/user-attachments/assets/093dfd64-273a-4b05-9e0b-a35b6f7cbbed" />
+<img width="900" height="582" alt="Screenshot (148)" src="https://github.com/user-attachments/assets/093dfd64-273a-4b05-9e0b-a35b6f7cbbed" />
 
-
-**Figure 5: Transient response of the CMOS inverter**
 
 The measured waveform is used to determine parameters such as rise time, fall time and propagation delay.
 
@@ -154,11 +144,8 @@ The measured waveform is used to determine parameters such as rise time, fall ti
 The simulation waveform is further examined over a selected time interval. This allows the transition points of the input and output signals to be identified accurately.
 
 The time difference between corresponding input and output transitions represents the propagation delay of the inverter.
-<img width="1920" height="1080" alt="Screenshot (149)" src="https://github.com/user-attachments/assets/163d8c7a-308b-4075-93cb-1089ac653b46" />
+<img width="900" height="582" alt="Screenshot (149)" src="https://github.com/user-attachments/assets/163d8c7a-308b-4075-93cb-1089ac653b46" />
 
-
-
-**Figure 6: Detailed observation of the transient waveform**
 
 Accurate waveform observation is necessary for obtaining reliable timing measurements and comparing different transistor sizing conditions.
 
@@ -169,12 +156,8 @@ Accurate waveform observation is necessary for obtaining reliable timing measure
 The performance of a CMOS inverter strongly depends on the relative sizing of the PMOS and NMOS transistors. Different width ratios are therefore simulated and compared.
 
 Increasing transistor width increases the available drive current and can reduce the time required to charge or discharge the load. However, excessive sizing also increases capacitance and may affect overall performance.
-<img width="1920" height="1080" alt="Screenshot (150)" src="https://github.com/user-attachments/assets/c5589897-81eb-474e-8f26-f2641be5417f" />
+<img width="900" height="582" alt="Screenshot (150)" src="https://github.com/user-attachments/assets/c5589897-81eb-474e-8f26-f2641be5417f" />
 
-
-**Figure 7: Effect of transistor sizing on inverter behavior**
-
-The comparison helps identify a suitable PMOS-to-NMOS sizing ratio for achieving balanced inverter operation.
 
 ---
 
@@ -183,12 +166,7 @@ The comparison helps identify a suitable PMOS-to-NMOS sizing ratio for achieving
 Static characterization is performed using the **Voltage Transfer Characteristic (VTC)** of the CMOS inverter.
 
 The VTC represents the relationship between the input voltage and output voltage. It shows three important operating regions: the logic HIGH region, the transition region and the logic LOW region.
-<img width="1920" height="1080" alt="Screenshot (151)" src="https://github.com/user-attachments/assets/2fc3f090-13f4-42ff-9857-66aa0516e2b9" />
-
-
-**Figure 8: Static voltage-transfer characteristic**
-
-The steep transition region indicates the switching behavior of the inverter. A well-designed CMOS inverter provides clear logic levels and good noise margins.
+<img width="900" height="582" alt="Screenshot (151)" src="https://github.com/user-attachments/assets/2fc3f090-13f4-42ff-9857-66aa0516e2b9" />
 
 ---
 
@@ -197,15 +175,11 @@ The steep transition region indicates the switching behavior of the inverter. A 
 The VTC curves for different transistor sizing ratios are compared to study the robustness of the inverter.
 
 The switching point changes when the relative strength of the PMOS and NMOS devices changes. By comparing these curves, the effect of sizing on the logic threshold and inverter symmetry can be understood.
-<img width="1920" height="1080" alt="Screenshot (153)" src="https://github.com/user-attachments/assets/821c8469-2f7e-4a3f-b127-48a50eee15b1" />
+<img width="900" height="582" alt="Screenshot (153)" src="https://github.com/user-attachments/assets/821c8469-2f7e-4a3f-b127-48a50eee15b1" />
 
 <p align="center">
 <img src="images/09.jpg" width="800">
 </p>
-
-**Figure 9: CMOS inverter robustness evaluation**
-
-This analysis is useful for selecting a device ratio that provides stable switching behavior and acceptable noise margins.
 
 ---
 
@@ -214,11 +188,8 @@ This analysis is useful for selecting a device ratio that provides stable switch
 The switching threshold voltage is the input voltage at which the inverter changes from its HIGH-output state to its LOW-output state.
 
 The threshold voltage is affected by the transistor characteristics, device sizing, body voltage and fabrication parameters. The body effect is particularly important when the source-to-body voltage is not zero.
-<img width="1920" height="1080" alt="Screenshot (155)" src="https://github.com/user-attachments/assets/c9664ecf-4838-4fbc-8fc8-c6b5db446aee" />
+<img width="900" height="582" alt="Screenshot (155)" src="https://github.com/user-attachments/assets/c9664ecf-4838-4fbc-8fc8-c6b5db446aee" />
 
-
-
-**Figure 10: Switching threshold analysis**
 
 The calculated and simulated values are compared to understand the relationship between the theoretical equations and the actual device behavior.
 
@@ -229,12 +200,8 @@ The calculated and simulated values are compared to understand the relationship 
 The voltage-transfer curve provides a complete static representation of the CMOS inverter.
 
 At low input voltage, the PMOS is ON and the NMOS is OFF, so the output remains close to the supply voltage. At high input voltage, the NMOS is ON and the PMOS is OFF, causing the output to approach ground.
-<img width="1920" height="1080" alt="Screenshot (156)" src="https://github.com/user-attachments/assets/1338976a-8783-4ca5-9e82-476e90324e4d" />
+<img width="900" height="582" alt="Screenshot (156)" src="https://github.com/user-attachments/assets/1338976a-8783-4ca5-9e82-476e90324e4d" />
 
-
-**Figure 11: CMOS inverter VTC**
-
-The sharp transition in the VTC demonstrates the high voltage gain of the CMOS inverter around the switching region.
 
 ---
 
@@ -243,13 +210,8 @@ The sharp transition in the VTC demonstrates the high voltage gain of the CMOS i
 A second sizing condition is evaluated to observe how changing the transistor dimensions affects the inverter's switching characteristics.
 
 Changing the PMOS/NMOS ratio modifies the balance between the pull-up and pull-down networks. This can shift the switching threshold and change the rise and fall delays.
-<img width="1920" height="1080" alt="Screenshot (157)" src="https://github.com/user-attachments/assets/2299ffa1-5019-49fb-b46b-df5d86c3f42d" />
+<img width="900" height="582" alt="Screenshot (157)" src="https://github.com/user-attachments/assets/2299ffa1-5019-49fb-b46b-df5d86c3f42d" />
 
-
-
-**Figure 12: Comparison of inverter sizing conditions**
-
-The simulation demonstrates why transistor sizing is an important step in standard-cell design.
 
 ---
 
@@ -258,11 +220,8 @@ The simulation demonstrates why transistor sizing is an important step in standa
 The values obtained from the simulation are verified using the calculated result. This provides an additional check on the measurements obtained from the waveform and characterization process.
 
 The numerical verification helps ensure that the extracted parameter is consistent with the theoretical calculation.
-<img width="1920" height="1080" alt="Screenshot (158)" src="https://github.com/user-attachments/assets/53f7e58a-ceef-4f41-b9fb-6e8cbdc32188" />
+<img width="900" height="582" alt="Screenshot (158)" src="https://github.com/user-attachments/assets/53f7e58a-ceef-4f41-b9fb-6e8cbdc32188" />
 
-
-
-**Figure 13: Verification of calculated simulation parameter**
 
 Such verification improves confidence in the extracted timing and electrical characteristics.
 
@@ -273,10 +232,8 @@ Such verification improves confidence in the extracted timing and electrical cha
 The final characterization summarizes the behavior of the selected CMOS inverter configuration.
 
 The voltage-transfer characteristic, switching behavior and timing response are used together to evaluate whether the chosen transistor sizing provides the desired performance.
-<img width="1920" height="1080" alt="Screenshot (159)" src="https://github.com/user-attachments/assets/7c2cf640-3a16-4c18-a33a-a0c48b71354d" />
+<img width="900" height="582" alt="Screenshot (159)" src="https://github.com/user-attachments/assets/7c2cf640-3a16-4c18-a33a-a0c48b71354d" />
 
-
-**Figure 14: Final CMOS inverter characterization**
 
 The characterization results provide the basis for proceeding towards the physical implementation of the standard cell.
 
@@ -289,13 +246,6 @@ The characterization results provide the basis for proceeding towards the physic
 The standard-cell design environment is prepared by cloning the required repository into the OpenLane working directory.
 
 Git is used to obtain the required source files, configuration files, technology information and supporting resources.
-<img width="958" height="934" alt="gitcloning 2nd image" src="https://github.com/user-attachments/assets/a9b140d8-4ff0-4579-b243-ceae1a28b9f7" />
-
-
-
-**Figure 15: Cloning the standard-cell design repository**
-
-Repository cloning ensures that the design environment contains all the files required for subsequent layout and physical-design activities.
 
 ---
 
@@ -304,13 +254,8 @@ Repository cloning ensures that the design environment contains all the files re
 After cloning the repository, the required SKY130A technology file is copied into the appropriate standard-cell design directory.
 
 The technology file contains important information required by the layout and physical-design tools to interpret the process layers and device structures correctly.
-<img width="958" height="934" alt="3rd image sky130A tech is copied from magic to vsdstdcelldesign by using cp  command" src="https://github.com/user-attachments/assets/c4e9d76b-11d9-481b-a26e-665468b324a9" />
+<img width="900" height="582" alt="3rd image sky130A tech is copied from magic to vsdstdcelldesign by using cp  command" src="https://github.com/user-attachments/assets/c4e9d76b-11d9-481b-a26e-665468b324a9" />
 
-
-
-**Figure 16: Copying the SKY130A technology file**
-
-Correct placement of the technology file is essential for opening and processing the standard-cell layout using the SKY130A technology.
 
 ---
 
@@ -319,11 +264,8 @@ Correct placement of the technology file is essential for opening and processing
 The CMOS inverter layout is opened using the layout editor. The physical arrangement of the PMOS and NMOS devices, contacts, diffusion regions, polysilicon and metal layers can be observed.
 
 The layout represents the physical implementation of the transistor-level CMOS inverter designed during the simulation stage.
-<img width="958" height="934" alt="4th image inverter layout" src="https://github.com/user-attachments/assets/5742fab9-ac85-4562-aa2d-be6d7464c84b" />
+<img width="900" height="582" alt="magic_inverter" src="https://github.com/user-attachments/assets/3cf5e97d-28f9-4cd3-a796-f9fc09bbb48a" />
 
-
-
-**Figure 17: SKY130A CMOS inverter layout**
 
 A well-designed layout must satisfy the technology design rules while maintaining compact area and proper electrical connectivity.
 
@@ -342,11 +284,8 @@ The fabrication sequence consists of repeated steps of oxidation, photolithograp
 The fabrication process begins with the selection of a P-type silicon substrate.
 
 The substrate provides the mechanical and electrical foundation on which the CMOS devices are fabricated. The substrate is selected with a controlled doping concentration, resistivity and crystal orientation.
-<img width="1920" height="1080" alt="Screenshot (161)" src="https://github.com/user-attachments/assets/98d1d7a1-5e96-431d-a2b9-e2f73c52b3a8" />
+<img width="900" height="582" alt="Screenshot (161)" src="https://github.com/user-attachments/assets/98d1d7a1-5e96-431d-a2b9-e2f73c52b3a8" />
 
-
-
-**Figure 18: Selection of P-type silicon substrate**
 
 Starting with a controlled substrate is important because the substrate properties directly influence device characteristics such as threshold voltage, junction behavior and leakage.
 
@@ -357,11 +296,8 @@ Starting with a controlled substrate is important because the substrate properti
 The first mask is used to define the active regions in which transistors will eventually be formed.
 
 Field oxide is grown over the regions that must be electrically isolated. The LOCOS process, or **Local Oxidation of Silicon**, is used to separate active device areas.
-<img width="1920" height="1080" alt="Screenshot (162)" src="https://github.com/user-attachments/assets/1aff10a7-95a3-42ad-b3d5-5c0309004cc7" />
+<img width="900" height="582" alt="Screenshot (162)" src="https://github.com/user-attachments/assets/1aff10a7-95a3-42ad-b3d5-5c0309004cc7" />
 
-
-
-**Figure 19: Active region formation using Mask 1**
 
 The field oxide prevents unwanted conduction between neighboring devices and provides electrical isolation.
 
@@ -377,9 +313,6 @@ Boron is a P-type dopant and is implanted into the selected region to form the P
 <img width="1920" height="1080" alt="Screenshot (165)" src="https://github.com/user-attachments/assets/08190702-815f-4c72-b610-97fb8e0166ca" />
 
 
-
-**Figure 20: P-well formation using boron implantation**
-
 The P-well provides the body region in which the NMOS transistor will be fabricated. Proper well formation is essential for achieving the required threshold voltage and isolation.
 
 ---
@@ -391,9 +324,6 @@ Phosphorus, which is an N-type dopant, is implanted into the selected region to 
 The N-well provides the body region required for the PMOS transistor in a CMOS process.
 <img width="1920" height="1080" alt="Screenshot (166)" src="https://github.com/user-attachments/assets/3eea2bb2-1a04-4bab-bbce-cebec3cfb9a1" />
 
-
-
-**Figure 21: N-well formation using phosphorus implantation**
 
 The combination of N-well and P-well regions enables both PMOS and NMOS transistors to be fabricated on the same silicon substrate.
 
@@ -407,9 +337,6 @@ The gate is one of the most important parts of a MOS transistor because it contr
 <img width="1920" height="1080" alt="Screenshot (167)" src="https://github.com/user-attachments/assets/af3ce00b-d164-453f-a816-0240d8722d5a" />
 
 
-
-**Figure 22: Initial stage of gate formation**
-
 The gate structure separates the control terminal from the semiconductor using a thin insulating oxide layer. This allows the MOS transistor to be controlled using an electric field.
 
 ---
@@ -421,9 +348,6 @@ The threshold voltage of a MOS transistor is not constant under all operating co
 The threshold-voltage equation includes the body-effect term, which represents the change in threshold voltage when the source and body are at different potentials.
 <img width="1920" height="1080" alt="Screenshot (168)" src="https://github.com/user-attachments/assets/08b2624d-7192-45c2-8d63-1af8ac178f9f" />
 
-
-
-**Figure 23: Threshold voltage and body-effect analysis**
 
 The body effect becomes particularly important when the source-to-body voltage changes. Understanding this effect is necessary for accurate transistor modeling and CMOS circuit design.
 
@@ -437,9 +361,6 @@ Mask 4 defines the region that is retained or removed during the subsequent proc
 <img width="1920" height="1080" alt="Screenshot (169)" src="https://github.com/user-attachments/assets/a492ef5b-3fa2-4c9b-a203-0bd4e646ea3b" />
 
 
-
-**Figure 24: Gate formation using Mask 4**
-
 Accurate gate patterning is critical because the gate length directly affects important transistor characteristics such as drive current, delay and short-channel behavior.
 
 ---
@@ -452,9 +373,6 @@ The photoresist acts as a temporary protective layer, allowing selected regions 
 <img width="1920" height="1080" alt="Screenshot (172)" src="https://github.com/user-attachments/assets/9c71bc4c-91f1-4c3b-a4a5-511ddf4187aa" />
 
 
-
-**Figure 25: Gate processing using Mask 5**
-
 This stage refines the physical gate structure and prepares the transistor regions for subsequent implantation steps.
 
 ---
@@ -464,11 +382,8 @@ This stage refines the physical gate structure and prepares the transistor regio
 Mask 6 is used during the continuation of the gate-processing sequence.
 
 The patterned structure now provides the physical definition required for controlling the later source/drain implantation regions.
-<img width="1920" height="1080" alt="Screenshot (173)" src="https://github.com/user-attachments/assets/b4606e4d-1daa-4ae8-b158-10d8e8d97dcd" />
+<img width="900" height="582" alt="Screenshot (173)" src="https://github.com/user-attachments/assets/b4606e4d-1daa-4ae8-b158-10d8e8d97dcd" />
 
-
-
-**Figure 26: Gate formation using Mask 6**
 
 The gate acts as the self-aligned reference for forming the source and drain regions, which is a key feature of modern MOS fabrication.
 
@@ -484,9 +399,6 @@ These regions reduce the electric field near the drain and help improve device r
 <img width="1920" height="1080" alt="Screenshot (174)" src="https://github.com/user-attachments/assets/83e12ad6-00cd-43b7-b9da-4af0ec4bd789" />
 
 
-
-**Figure 27: LDD formation using Mask 7**
-
 The lightly doped extension provides a gradual transition between the heavily doped source/drain region and the channel.
 
 ---
@@ -498,9 +410,6 @@ The complementary LDD implantation is performed for the opposite transistor type
 The correct dopant type is selected depending on whether the region belongs to the NMOS or PMOS device.
 <img width="1920" height="1080" alt="Screenshot (175)" src="https://github.com/user-attachments/assets/a5014a7e-dbc5-40c7-820c-3cfecb867154" />
 
-
-
-**Figure 28: Complementary LDD implantation using Mask 8**
 
 The LDD process provides a balance between transistor drive capability and reliability by controlling the electric field near the drain.
 
@@ -516,9 +425,6 @@ The implantation is aligned with the gate structure so that the source and drain
 <img width="1920" height="1080" alt="Screenshot (176)" src="https://github.com/user-attachments/assets/a25c0e16-f874-4fb9-b54e-96fc86075bec" />
 
 
-
-**Figure 29: Source and drain formation using Mask 9**
-
 The heavily doped regions provide low-resistance electrical terminals for the MOS transistor while the region underneath the gate remains available for channel formation.
 
 ---
@@ -528,11 +434,8 @@ The heavily doped regions provide low-resistance electrical terminals for the MO
 The complementary source/drain implantation is then performed for the opposite transistor type.
 
 The NMOS and PMOS require opposite conductivity types for their source and drain regions.
-<img width="1920" height="1080" alt="Screenshot (177)" src="https://github.com/user-attachments/assets/9a19c367-c638-4a29-9a6b-148632a9a514" />
+<img width="900" height="582" alt="Screenshot (177)" src="https://github.com/user-attachments/assets/9a19c367-c638-4a29-9a6b-148632a9a514" />
 
-
-
-**Figure 30: Complementary source and drain implantation**
 
 At this stage, the essential transistor structures are present: wells, gate, source and drain. These structures form the basic building blocks of the CMOS inverter.
 
@@ -548,9 +451,6 @@ The contact process provides a low-resistance electrical path from the source, d
 <img width="1920" height="1080" alt="Screenshot (178)" src="https://github.com/user-attachments/assets/a6563950-7c0d-450b-ad24-42d353a4b0a4" />
 
 
-
-**Figure 31: Formation of local contacts and interconnects**
-
 The process includes cleaning and etching steps to ensure that the contact regions are properly prepared before metal deposition.
 
 Proper contact formation is important because defects or high contact resistance can significantly affect circuit performance.
@@ -564,10 +464,8 @@ Proper contact formation is important because defects or high contact resistance
 The final stage shown in this module is the formation of higher-level metal interconnections.
 
 Metal layers are used to electrically connect different transistor terminals and different parts of the integrated circuit. Contact holes are opened where connections between different layers are required.
-<img width="1920" height="1080" alt="Screenshot (179)" src="https://github.com/user-attachments/assets/b951251d-0461-40c9-8056-25eab941f27c" />
+<img width="900" height="582" alt="Screenshot (179)" src="https://github.com/user-attachments/assets/b951251d-0461-40c9-8056-25eab941f27c" />
 
-
-**Figure 32: Higher-level metal formation**
 
 The final metallization stage converts the isolated transistor structures into a complete electrically connected circuit. Higher-level metal layers are essential for routing signals, power and ground throughout the chip.
 
@@ -622,7 +520,6 @@ Completed CMOS Structure
 ```
 
 
-
 # 9. Layout and Abstract View
 
 The first stage of the design flow is the creation of the standard-cell layout using the SKY130A technology.
@@ -639,11 +536,8 @@ The layout represents the physical implementation of the CMOS circuit using the 
 The corresponding abstract view represents the simplified physical information of the cell that can be used by the digital implementation flow.
 
 The layout and abstract views are checked to ensure that the cell has the required physical structure and proper connectivity.
-<img width="1372" height="611" alt="Screenshot (180)" src="https://github.com/user-attachments/assets/59d161c4-e4a5-4b98-ba5c-19cf02977397" />
+<img width="900" height="582" alt="Screenshot (180)" src="https://github.com/user-attachments/assets/59d161c4-e4a5-4b98-ba5c-19cf02977397" />
 
-
-
-**Figure 1: Layout and abstract representation of the standard cell**
 
 ---
 
@@ -662,11 +556,8 @@ The cell boundary also helps maintain:
 - Compatibility with the standard-cell library
 
 The layout is therefore organized inside the defined cell boundary.
-<img width="1361" height="701" alt="Screenshot (181)" src="https://github.com/user-attachments/assets/0f9c2258-893a-4911-8d7c-f375712e0804" />
+<img width="900" height="582" alt="Screenshot (181)" src="https://github.com/user-attachments/assets/0f9c2258-893a-4911-8d7c-f375712e0804" />
 
-
-
-**Figure 2: Defined standard-cell boundary**
 
 ---
 
@@ -682,11 +573,8 @@ For the CMOS standard cell:
 The power and ground segments are connected to the appropriate transistor terminals and are routed through the required layout layers.
 
 Correct power and ground connectivity is essential for reliable circuit operation and for maintaining compatibility with the standard-cell architecture.
-<img width="1359" height="712" alt="Screenshot (182)" src="https://github.com/user-attachments/assets/e56ddad5-d321-4234-af24-3577a3d52301" />
+<img width="900" height="582" alt="Screenshot (182)" src="https://github.com/user-attachments/assets/e56ddad5-d321-4234-af24-3577a3d52301" />
 
-
-
-**Figure 3: Power and ground connections in the layout**
 
 ---
 
@@ -709,8 +597,6 @@ This step is important because simulation of the extracted circuit provides a mo
 <img width="958" height="934" alt="extracting 5th image" src="https://github.com/user-attachments/assets/9281895a-cdaf-43b5-bd97-fe5652ed2a41" />
 
 
-**Figure 4: Extraction of the layout**
-
 ---
 
 # 13. Generating the Extracted Netlist
@@ -724,9 +610,6 @@ The generated files are verified before proceeding to the SPICE simulation stage
 Typical files generated during this stage include the extracted layout information and SPICE-compatible netlist files.
 <img width="958" height="934" alt="commands for 5th image" src="https://github.com/user-attachments/assets/6e2a0e14-19a6-499c-8211-922763a2d024" />
 
-
-
-**Figure 5: Generated extracted files and netlist**
 
 ---
 
@@ -747,8 +630,6 @@ The SPICE file contains:
 The standard-cell subcircuit is defined using the extracted device parameters so that the physical implementation can be simulated using NGSPICE.
 <img width="958" height="934" alt="6th spice file" src="https://github.com/user-attachments/assets/71584479-2934-46cf-a0fa-99bd6f1ad115" />
 
-
-**Figure 6: SPICE file generated for simulation**
 
 ---
 
@@ -772,9 +653,6 @@ are observed.
 The initial simulation output confirms that the extracted circuit is electrically connected and can be simulated successfully.
 <img width="958" height="934" alt="7th image" src="https://github.com/user-attachments/assets/156adb31-de86-4f91-95b1-6b047d725ae7" />
 
-
-**Figure 7: NGSPICE transient analysis**
-
 ---
 
 # 16. Input and Output Waveforms
@@ -793,8 +671,6 @@ The waveform confirms the expected inverter functionality.
 The simulated voltage levels are close to the expected supply and ground levels, demonstrating correct operation of the extracted standard cell.
 <img width="958" height="934" alt="8th" src="https://github.com/user-attachments/assets/462635ce-8158-4138-8edb-8b8db8b45fa1" />
 
-
-**Figure 8: Simulated input and output transient waveforms**
 
 ---
 
