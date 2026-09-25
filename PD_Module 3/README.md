@@ -1,26 +1,21 @@
-# Module 3 – RTL to Physical Design / CMOS Technology
-# CMOS Inverter Design, Characterization, SKY130A Standard-Cell Layout & 16-Mask CMOS Fabrication
+# PHYSICAL DESIGN MODULE 3 
+## RTL to Physical Design / CMOS Technology
+## CMOS Inverter Design, Characterization, SKY130A Standard-Cell Layout & 16-Mask CMOS Fabrication
 ---
 
-## 📌 Overview
+## Overview
 
-This module presents a complete practical flow of CMOS inverter design, transistor-level SPICE simulation, circuit characterization, SKY130A standard-cell layout, layout extraction, extracted SPICE simulation, and CMOS fabrication.
+This module presents a complete practical flow of CMOS inverter design, covering transistor-level SPICE simulation, circuit characterization, SKY130A standard-cell layout, layout extraction, post-layout simulation, and CMOS fabrication.
 
-The work begins with the design and analysis of a CMOS inverter using SPICE. The inverter is characterized by studying its transient response, input and output waveforms, rise time, fall time, propagation delay, voltage transfer characteristics, switching threshold, and the effect of PMOS/NMOS transistor sizing.
+The inverter is analyzed using transient response, input/output waveforms, rise time, fall time, propagation delay, voltage transfer characteristics, switching threshold, and PMOS/NMOS sizing effects. The design is then implemented using the SKY130A technology, including examination of the physical layout, standard-cell structure, and power and ground connections.
 
-The design is then taken into the SKY130A standard-cell physical design flow. The required design repository and technology files are prepared, the CMOS inverter layout is examined, the standard-cell boundary is defined, and power and ground connections are established.
+The extracted layout is converted into a SPICE-compatible netlist and simulated using NGSPICE to verify the functionality and electrical behaviour of the implemented inverter. Finally, the module covers the major stages of the 16-mask CMOS fabrication process, from substrate and well formation to gate formation, source/drain implantation, contacts, and metal interconnections.
 
-The physical layout is subsequently extracted to obtain the electrical representation of the implemented circuit. The extracted information is used to generate a SPICE-compatible netlist, which is simulated using NGSPICE. The resulting transient waveforms are analyzed to verify the functionality and electrical behaviour of the extracted CMOS inverter.
-
-The module also covers the major stages of the 16-mask CMOS fabrication process, starting from silicon substrate preparation and progressing through active-region formation, well formation, gate formation, LDD implantation, source/drain formation, contact formation, and metal interconnection.
-
-Overall, this module establishes the complete relationship between circuit-level design, simulation, physical implementation, layout extraction, post-layout verification, and CMOS fabrication technology.
-
+Overall, this module provides a clear understanding of the complete journey from circuit design and simulation to physical layout, post-layout verification, and CMOS fabrication.
 
 ---
----
 
-## 🎯 Objectives
+## Objectives
 
 - To understand the operation of a CMOS inverter at transistor level.
 - To perform CMOS inverter simulation using SPICE.
@@ -51,7 +46,7 @@ Overall, this module establishes the complete relationship between circuit-level
 | **GitHub** | Project repository and documentation |
 | **CMOS Technology** | Understanding transistor fabrication and process flow |# CMOS Inverter Design, Characterization and 16-Mask CMOS Fabrication
 
-## 📑 Table of Contents
+## Table of Contents
 
 1. CMOS Inverter SPICE Simulation and Characterization
 2. SKY130A Standard-Cell Design Flow
