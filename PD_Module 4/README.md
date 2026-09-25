@@ -999,5 +999,10 @@ The module then introduced **Clock Tree Synthesis using TritonCTS**, including c
 
 Overall, this module demonstrated how **standard-cell timing, synthesis, clock distribution, and physical implementation are closely connected in achieving timing closure** and provided a strong foundation for advanced physical-design and RTL-to-GDSII workflows.
 
-```
+## 👤 Author
+
+**Shaik Farida**  
+B.Tech – Electronics & Communication Engineering  
+Anurag University  
+[RTL Workshop Repository](https://github.com/itsfari-nova/RTL_Design_Workshop)
 
