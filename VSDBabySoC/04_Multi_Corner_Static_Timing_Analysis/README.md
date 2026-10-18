@@ -1,395 +1,416 @@
-# Multi-Corner Static Timing Analysis(STA)
+# Multi-Corner Static Timing Analysis (STA)
 
-### Setup-timing sign-off study of the synthesized `vsdbabysoc` netlist across all 16 SKY130 HD PVT corners
+### Comprehensive Setup and Hold Timing Evaluation Across 18 SKY130 HD PVT Corners
 
-![Technology](https://img.shields.io/badge/Technology-SKY130%20HD-blue)
-![Tool](https://img.shields.io/badge/STA%20Engine-OpenSTA-orange)
-![Corners](https://img.shields.io/badge/PVT%20Corners-16-green)
-![Clock](https://img.shields.io/badge/Clock-11%20ns-informational)
-![Result](https://img.shields.io/badge/Setup-8%20Pass%20%7C%208%20Fail-red)
-
----
+<p align="center">
+  <img src="https://img.shields.io/badge/Technology-SKY130%20HD-blue?style=for-the-badge" alt="SKY130 HD">
+  <img src="https://img.shields.io/badge/Analysis-OpenSTA-orange?style=for-the-badge" alt="OpenSTA">
+  <img src="https://img.shields.io/badge/PVT%20Corners-18-green?style=for-the-badge" alt="18 PVT corners">
+  <img src="https://img.shields.io/badge/Timing-Setup%20%26%20Hold-informational?style=for-the-badge" alt="Setup and hold analysis">
+</p>
 
 ## Table of Contents
 
-1. [Project Summary](#1--project-summary)
-2. [Headline Results](#2--headline-results)
-3. [Inputs & Environment](#3--inputs--environment)
-4. [Understanding PVT Corners](#4--understanding-pvt-corners)
-5. [The 16 Corners Analysed](#5--the-16-corners-analysed)
-6. [Analysis Flow](#6--analysis-flow)
-7. [Results — Worst Setup Path per Corner](#7--results--worst-setup-path-per-corner)
-8. [WNS & TNS Analysis](#8--wns--tns-analysis)
-9. [Key Findings](#9--key-findings)
-10. [Per-Corner Terminal Evidence](#10--per-corner-terminal-evidence)
-11. [Scope, Assumptions & Limitations](#11--scope-assumptions--limitations)
-12. [How to Reproduce](#12--how-to-reproduce)
-13. [Conclusion](#13--conclusion)
-14. [Tools & Technologies](#14--tools--technologies)
+- [Project Overview](#-project-overview)
+- [Introduction to STA](#-introduction-to-static-timing-analysis)
+- [Design Files and Libraries](#-design-files-and-timing-libraries)
+- [Multi-Corner PVT Configuration](#-multi-corner-pvt-configuration)
+- [Timing Results](#-multi-corner-timing-results)
+- [Analysis Methodology](#-sta-execution-methodology)
+- [Setup and Hold Evaluation](#-setup-and-hold-timing-evaluation)
+- [WNS and TNS Analysis](#-wns-and-tns-analysis)
+- [Timing Visualization](#-timing-visualization)
+- [Screenshots and Evidence](#-screenshots-and-evidence)
+- [Key Findings](#-key-findings)
+- [Conclusion](#-conclusion)
+- [Tools and Technologies](#-tools-and-technologies)
 
 ---
 
-## 1. Project Summary
+## Project Overview
 
-This repository documents a **multi-corner Static Timing Analysis (STA)** of the synthesized **VSDBabySoC** design. The gate-level netlist was timed with **OpenSTA** against every characterized **sky130_fd_sc_hd** Liberty file (16 process-voltage-temperature combinations), using a single **11 ns** clock constraint.
+This project focuses on performing **multi-corner Static Timing Analysis (STA)** on the synthesized VSDBabySoC design using OpenSTA and SKY130 HD standard-cell timing libraries.
 
-For each corner the worst setup (max-delay) path was captured, and the results were consolidated in an Excel workbook that computes **WNS**, **TNS** and a pass/fail status, and plots both metrics across the corner set.
+The design is evaluated under **18 process, voltage, and temperature (PVT) timing conditions** to study the behavior of minimum-delay and maximum-delay paths. The analysis produces timing reports and comparison plots covering minimum slack, maximum slack, Worst Negative Slack (WNS), and Total Negative Slack (TNS).
 
-**Goal:** discover *where* the design stops meeting its clock, *why*, and *by how much* — before any physical-design effort is spent.
+By comparing results across operating corners, this work identifies conditions that satisfy timing requirements and highlights corners that require further setup-timing investigation.
 
-### Project at a glance
+### 📋 Project Details
 
-| Parameter | Detail |
+| Parameter | Description |
 |---|---|
-| Design | VSDBabySoC |
-| Top module | `vsdbabysoc` |
-| Netlist | `vsdbabysoc.synth.v` (post-synthesis) |
-| Constraints | `vsdbabysoc_synthesis.sdc` — clock `clk`, period **11.00 ns** |
-| STA tool | OpenSTA (`sta`, driven by `run.tcl`) |
-| Std-cell library | `sky130_fd_sc_hd` — 16 Liberty corners |
-| Analog macros | `avsdpll.lib`, `avsddac.lib` (same in every run) |
-| Check performed | Setup / max-delay (worst path per corner) |
-| Metrics | Slack, WNS, TNS, approx. minimum period |
+| Project | VSDBabySoC Multi-Corner STA |
+| Top-level module | `vsdbabysoc` |
+| Assessment date | 19 September 2026 |
+| Timing engine | OpenSTA |
+| Standard-cell technology | SKY130 HD |
+| Number of PVT corners | 18 |
+| Analysis category | Static Timing Analysis |
+| Timing checks | Setup and hold |
+| Evaluation metrics | Minimum slack, maximum slack, WNS and TNS |
 
----
+## Introduction to Static Timing Analysis
 
-## 2. Headline Results
+Static Timing Analysis is a fundamental digital-design verification technique that evaluates signal propagation delays and timing requirements without relying on functional input-vector simulation.
 
-| Metric | Value |
+STA examines timing paths through sequential and combinational logic and checks whether data reaches its destination within the required timing window.
+
+In this project, OpenSTA analyzes the synthesized VSDBabySoC netlist using the specified timing constraints and characterized SKY130 HD libraries. Multiple PVT corners are evaluated to understand how changes in process characteristics, supply voltage, and temperature influence circuit timing.
+
+The resulting reports help identify timing-critical operating conditions and provide a basis for further investigation and optimization.
+
+## 🗂️ Design Files and Timing Libraries
+
+The following files and directories form part of the reported analysis setup.
+
+| Component | File or directory |
 |---|---|
-| Corners analysed | **16** |
-| Corners meeting setup | **8** (all 6 FF + both TT) |
-| Corners violating setup | **8** (all SS) |
-| Best slack | **+5.59 ns** @ `ff_n40C_1v95` |
-| Worst slack / WNS | **−62.56 ns** @ `ss_n40C_1v28` |
-| Worst TNS | **−13,957.59 ns** @ `ss_n40C_1v28` *(see [note](#11--scope-assumptions--limitations))* |
-| Mildest failing corner | `ss_n40C_1v76` — −4.38 ns (needs ≈ 15.4 ns period) |
-| Nominal corner `tt_025C_1v80` | **+1.94 ns** — MET |
+| Synthesized netlist | `/home/vsduser/OpenSTA/BabySoC_Simulation/src/vsdbabysoc.synth.v` |
+| SDC constraints | `/home/vsduser/Desktop/VSDBabySoC/src/sdc/vsdbabysoc_synthesis.sdc` |
+| PLL Liberty library | `/home/vsduser/Desktop/VSDBabySoC/src/lib/avsdpll.lib` |
+| DAC Liberty library | `/home/vsduser/Desktop/VSDBabySoC/src/lib/avsddac.lib` |
+| SKY130 HD timing libraries | `/home/vsduser/Desktop/skywater-pdk-libs-sky130_fd_sc_hd/timing/` |
 
-> **Bottom line:** the design closes at 11 ns under fast and typical silicon, but fails every slow-silicon corner. The failure is driven by one long **ripple-carry adder chain** whose delay grows sharply as supply voltage drops.
+### 1. Synthesized Netlist
 
----
+**File:** `vsdbabysoc.synth.v`
 
-## 3. Inputs & Environment
+The synthesized netlist describes the mapped digital design and serves as the circuit representation analyzed by the STA tool.
 
-| Item | Source |
+### 2. Timing Constraints
+
+**File:** `vsdbabysoc_synthesis.sdc`
+
+The Synopsys Design Constraints file defines the timing requirements used during analysis, including applicable clock and path constraints.
+
+### 3. PLL and DAC Liberty Models
+
+**Files:** `avsdpll.lib` and `avsddac.lib`
+
+These Liberty files provide the timing models associated with the PLL and DAC components included in the design setup.
+
+### 4. SKY130 HD Standard-Cell Libraries
+
+The SKY130 HD timing-library directory contains characterized cell timing data for supported operating conditions. The appropriate library models are used to evaluate circuit delays at the configured PVT corners.
+
+## Multi-Corner PVT Configuration
+
+A process-voltage-temperature corner describes a particular combination of manufacturing-process characteristics, supply voltage, and operating temperature.
+
+The corner designations used in this analysis are:
+
+- **FF — Fast-Fast:** Represents fast modeled transistor process behavior.
+- **SS — Slow-Slow:** Represents slow modeled transistor process behavior.
+- **TT — Typical-Typical:** Represents typical modeled transistor process behavior.
+
+Supply voltage and temperature further influence the delay characteristics of standard cells and the overall timing behavior of a circuit.
+
+### Complete List of 18 Timing Corners
+
+| No. | Corner | Process | Temperature | Voltage |
+|---:|---|---|---:|---:|
+| 1 | `ff_100C_1v65` | FF | 100°C | 1.65 V |
+| 2 | `ff_100C_1v95` | FF | 100°C | 1.95 V |
+| 3 | `ff_n40C_1v56` | FF | -40°C | 1.56 V |
+| 4 | `ff_n40C_1v65` | FF | -40°C | 1.65 V |
+| 5 | `ff_n40C_1v76` | FF | -40°C | 1.76 V |
+| 6 | `ff_n40C_1v95` | FF | -40°C | 1.95 V |
+| 7 | `ff_n40C_1v95_ccsnoise` | FF + CCS noise | -40°C | 1.95 V |
+| 8 | `ss_100C_1v40` | SS | 100°C | 1.40 V |
+| 9 | `ss_100C_1v60` | SS | 100°C | 1.60 V |
+| 10 | `ss_n40C_1v28` | SS | -40°C | 1.28 V |
+| 11 | `ss_n40C_1v35` | SS | -40°C | 1.35 V |
+| 12 | `ss_n40C_1v40` | SS | -40°C | 1.40 V |
+| 13 | `ss_n40C_1v44` | SS | -40°C | 1.44 V |
+| 14 | `ss_n40C_1v60` | SS | -40°C | 1.60 V |
+| 15 | `ss_n40C_1v60_ccsnoise` | SS + CCS noise | -40°C | 1.60 V |
+| 16 | `ss_n40C_1v76` | SS | -40°C | 1.76 V |
+| 17 | `tt_025C_1v80` | TT | 25°C | 1.80 V |
+| 18 | `tt_100C_1v80` | TT | 100°C | 1.80 V |
+
+### Why Multi-Corner Analysis Matters
+
+Timing performance is not identical under every operating condition. Evaluating several corners helps determine whether a design satisfies its timing requirements across the selected range of conditions.
+
+In the reported results, all listed corners pass the hold checks. The listed FF and TT corners also pass setup checks, whereas the listed SS corners exhibit negative maximum slack and require further investigation.
+
+## Multi-Corner Timing Results
+
+The following table summarizes the minimum slack, maximum slack, and reported setup/hold status for each corner.
+
+| Timing corner | Min slack (ns) | Max slack (ns) | Hold status | Setup status |
+|---|---:|---:|---|---|
+| `ff_100C_1v65` | 0.25 | 4.05 | MET | MET |
+| `ff_100C_1v95` | 0.20 | 5.57 | MET | MET |
+| `ff_n40C_1v56` | 0.29 | 2.28 | MET | MET |
+| `ff_n40C_1v65` | 0.26 | 3.41 | MET | MET |
+| `ff_n40C_1v76` | 0.22 | 4.43 | MET | MET |
+| `ff_n40C_1v95` | 0.19 | 5.59 | MET | MET |
+| `ff_n40C_1v95_ccsnoise` | 0.19 | 5.59 | MET | MET |
+| `ss_100C_1v40` | 0.91 | -17.12 | MET | VIOLATED |
+| `ss_100C_1v60` | 0.64 | -7.87 | MET | VIOLATED |
+| `ss_n40C_1v28` | 1.83 | -62.56 | MET | VIOLATED |
+| `ss_n40C_1v35` | 1.35 | -39.70 | MET | VIOLATED |
+| `ss_n40C_1v40` | 1.12 | -29.69 | MET | VIOLATED |
+| `ss_n40C_1v44` | 0.99 | -23.91 | MET | VIOLATED |
+| `ss_n40C_1v60` | 0.66 | -10.61 | MET | VIOLATED |
+| `ss_n40C_1v60_ccsnoise` | 0.66 | -10.61 | MET | VIOLATED |
+| `ss_n40C_1v76` | 0.50 | -4.38 | MET | VIOLATED |
+| `tt_025C_1v80` | 0.31 | 1.94 | MET | MET |
+| `tt_100C_1v80` | 0.31 | 2.09 | MET | MET |
+
+### Initial Interpretation
+
+- All 18 listed corners have positive minimum slack and are reported as passing hold checks.
+- The listed FF and TT corners have positive maximum slack and pass the reported setup checks.
+- All listed SS corners have negative maximum slack and are reported as failing setup checks.
+- The most negative maximum slack occurs at `ss_n40C_1v28`.
+
+*Note: The values and status labels above reproduce the supplied report. Their interpretation depends on the constraints, path coverage, and timing-report definitions used in the analysis.*
+
+## STA Execution Methodology
+
+The multi-corner analysis follows the workflow described in the supplied report.
+
+1. **Load timing libraries** — Read the relevant SKY130 HD Liberty files and the PLL/DAC timing models.
+2. **Read the synthesized netlist** — Load the mapped VSDBabySoC circuit representation.
+3. **Apply timing constraints** — Read the SDC file to establish the timing requirements.
+4. **Run timing analysis** — Evaluate minimum-delay and maximum-delay paths for each configured corner.
+5. **Generate reports** — Save corner-specific timing results for later inspection.
+6. **Extract metrics** — Collect minimum slack, maximum slack, WNS, and TNS.
+7. **Organize report outputs** — Archive generated timing reports for comparison.
+8. **Visualize the results** — Generate plots to compare timing behavior across the 18 corners.
+
+This process creates a consistent basis for examining timing differences across the selected operating conditions.
+
+## Setup and Hold Timing Evaluation
+
+### Hold Timing — Minimum-Delay Analysis
+
+Hold analysis verifies that data does not arrive too early relative to the active clock edge. It evaluates minimum-delay paths and checks whether the required hold interval is maintained.
+
+The reported minimum-slack values are positive for all 18 corners.
+
+| Hold metric | Reported result |
 |---|---|
-| Synthesized netlist | `vsdbabysoc.synth.v` |
-| SDC constraints | `sdc/vsdbabysoc_synthesis.sdc` |
-| PLL timing model | `avsdpll.lib` |
-| DAC timing model | `avsddac.lib` |
-| SKY130 HD timing libraries | [`efabless/skywater-pdk-libs-sky130_fd_sc_hd`](https://github.com/efabless/skywater-pdk-libs-sky130_fd_sc_hd) → `timing/` |
-| Result workbook | `sky130_WNS_TNS_analysis.xlsx` |
+| Lowest minimum slack | 0.19 ns |
+| Corners with the lowest value | `ff_n40C_1v95`, `ff_n40C_1v95_ccsnoise` |
+| Highest minimum slack | 1.83 ns |
+| Corner with the highest value | `ss_n40C_1v28` |
+| Reported hold status | MET at all listed corners |
 
----
+These results indicate non-negative slack for the hold paths covered by the supplied reports.
 
-## 4. Understanding PVT Corners
+### Setup Timing — Maximum-Delay Analysis
 
-A **corner** is one specific combination of **P**rocess, **V**oltage and **T**emperature at which the standard cells were characterized. Since silicon must work across manufacturing spread and operating conditions, timing is verified at the extremes instead of only at the average.
+Setup analysis checks whether data reaches its destination early enough to satisfy the setup requirement before the relevant clock edge.
 
-Library naming convention: `sky130_fd_sc_hd__<process>_<temp>_<voltage>.lib`
-→ e.g. `ss_n40C_1v28` = slow-slow process, −40 °C, 1.28 V.
+The reported maximum-slack values show a clear difference between the process-corner groups.
 
-| Field | Values | What it means |
-|---|---|---|
-| **Process** | `tt` | Typical NMOS/PMOS — nominal reference behaviour |
-| | `ss` | Slow-slow — highest Vth, lowest drive current → **longest delays** (setup-critical) |
-| | `ff` | Fast-fast — lowest Vth, highest drive → **shortest delays** (hold-critical, peak power) |
-| **Temperature** | `n40C`, `025C`, `100C` | −40 °C, 25 °C, 100 °C (`n` = negative) |
-| **Voltage** | `1v28` … `1v95` | Supply in volts; `1v80` is the nominal core supply |
-
-### Temperature inversion — visible in this data
-
-At low supply voltage, gate overdrive (VDD − Vth) is small and Vth rises when cold, so **cold silicon can be slower than hot silicon**. The results confirm this:
-
-| Voltage | Hot (100 °C) slack | Cold (−40 °C) slack |
-|---|---|---|
-| 1.40 V (SS) | −17.12 ns | **−29.69 ns** (worse) |
-| 1.60 V (SS) | −7.87 ns | **−10.61 ns** (worse) |
-
-At 1.95 V (FF) hot and cold converge: path arrival is 5.39 ns vs 5.37 ns.
-
----
-
-## 5. 🗂️ The 16 Corners Analysed
-
-| # | Corner | Process | Temp | VDD (V) | vs 1.80 V | Role |
-|--:|---|---|--:|--:|--:|---|
-| 1 | `ff_100C_1v65` | Fast-Fast | 100 °C | 1.65 | −8.3 % | Hold / min-delay, power |
-| 2 | `ff_100C_1v95` | Fast-Fast | 100 °C | 1.95 | +8.3 % | Hold / min-delay, power |
-| 3 | `ff_n40C_1v56` | Fast-Fast | −40 °C | 1.56 | −13.3 % | Hold / min-delay, power |
-| 4 | `ff_n40C_1v65` | Fast-Fast | −40 °C | 1.65 | −8.3 % | Hold / min-delay, power |
-| 5 | `ff_n40C_1v76` | Fast-Fast | −40 °C | 1.76 | −2.2 % | Hold / min-delay, power |
-| 6 | `ff_n40C_1v95` | Fast-Fast | −40 °C | 1.95 | +8.3 % | Hold / min-delay, power |
-| 7 | `ss_100C_1v40` | Slow-Slow | 100 °C | 1.40 | −22.2 % | Setup / max-delay |
-| 8 | `ss_100C_1v60` | Slow-Slow | 100 °C | 1.60 | −11.1 % | Setup / max-delay |
-| 9 | `ss_n40C_1v28` | Slow-Slow | −40 °C | 1.28 | −28.9 % | Setup / max-delay |
-| 10 | `ss_n40C_1v35` | Slow-Slow | −40 °C | 1.35 | −25.0 % | Setup / max-delay |
-| 11 | `ss_n40C_1v40` | Slow-Slow | −40 °C | 1.40 | −22.2 % | Setup / max-delay |
-| 12 | `ss_n40C_1v44` | Slow-Slow | −40 °C | 1.44 | −20.0 % | Setup / max-delay |
-| 13 | `ss_n40C_1v60` | Slow-Slow | −40 °C | 1.60 | −11.1 % | Setup / max-delay |
-| 14 | `ss_n40C_1v76` | Slow-Slow | −40 °C | 1.76 | −2.2 % | Setup / max-delay |
-| 15 | `tt_025C_1v80` | Typical | 25 °C | 1.80 | 0 % | Nominal reference |
-| 16 | `tt_100C_1v80` | Typical | 100 °C | 1.80 | 0 % | Nominal reference |
-
-> 💡A conventional 1.8 V design is normally signed off at roughly **1.62 – 1.98 V**. The 1.28 – 1.44 V corners probe extreme low-power / brown-out behaviour and are informative, but sit far outside a typical supply specification.
-
----
-
-## 6. Analysis Flow
-
-The **same `run.tcl`** was executed for every corner. Only the standard-cell Liberty file was swapped; the PLL and DAC macro libraries stayed constant.
-
-<div align="center">
-
-![run.tcl used for the tt_025C_1v80 run](images/01_run_tcl_setup.jpg)
-
-*`run.tcl` as used for the `tt_025C_1v80` run*
-
-</div>
-
-| Step | Command | Purpose |
-|---|---|---|
-| 1 | `read_liberty -min / -max` | Load timing libraries (std-cells, PLL, DAC) |
-| 2 | `read_verilog` + `link_design vsdbabysoc` | Read the gate-level netlist and bind cells to the library |
-| 3 | `read_sdc` | Apply clock and I/O constraints (11 ns period) |
-| 4 | `report_checks -fields [list … capacitance slew fanout]` | Print the worst path with Fanout, Cap, Slew, Delay, Time |
-| 5 | `report_worst_slack`, `report_tns` | Confirm WNS / TNS (shown for the first corner) |
-| 6 | Excel workbook | Collate results, compute WNS / TNS / status, draw charts |
-
----
-
-## 7. Results — Worst Setup Path per Corner
-
-| # | Corner | Endpoint register¹ | Arrival (ns) | Lib setup (ns) | **Slack (ns)** | Status | Approx. min period² (ns) |
-|--:|---|---|--:|--:|--:|:--:|--:|
-| 1 | `ff_100C_1v65` | `Xreg_value_a4_reg[16][30]` | 6.88 | 0.07 | **+4.05** | ✅ MET | 6.95 |
-| 2 | `ff_100C_1v95` | `Xreg_value_a4_reg[16][30]` | 5.39 | 0.04 | **+5.57** | ✅ MET | 5.43 |
-| 3 | `ff_n40C_1v56` | `Xreg_value_a4_reg[16][31]` | 8.64 | 0.08 | **+2.28** | ✅ MET | 8.72 |
-| 4 | `ff_n40C_1v65` | `Xreg_value_a4_reg[16][31]` | 7.52 | 0.07 | **+3.41** | ✅ MET | 7.59 |
-| 5 | `ff_n40C_1v76` | `Xreg_value_a4_reg[1][31]` | 6.52 | 0.05 | **+4.43** | ✅ MET | 6.57 |
-| 6 | `ff_n40C_1v95` | `Xreg_value_a4_reg[16][31]` | 5.37 | 0.04 | **+5.59** | ✅ MET | 5.41 |
-| 7 | `ss_100C_1v40` | `Xreg_value_a4_reg[27][30]` | 27.54 | 0.58 | **−17.12** | ❌ VIOLATED | 28.12 |
-| 8 | `ss_100C_1v60` | `Xreg_value_a4_reg[27][30]` | 18.51 | 0.36 | **−7.87** | ❌ VIOLATED | 18.87 |
-| 9 | `ss_n40C_1v28` | `Xreg_value_a4_reg[27][30]` | 71.70 | 1.86 | **−62.56** | ❌ VIOLATED | 73.56 |
-| 10 | `ss_n40C_1v35` | `Xreg_value_a4_reg[27][30]` | 49.47 | 1.23 | **−39.70** | ❌ VIOLATED | 50.70 |
-| 11 | `ss_n40C_1v40` | `Xreg_value_a4_reg[27][30]` | 39.74 | 0.96 | **−29.69** | ❌ VIOLATED | 40.70 |
-| 12 | `ss_n40C_1v44` | `Xreg_value_a4_reg[27][30]` | 34.10 | 0.80 | **−23.91** | ❌ VIOLATED | 34.90 |
-| 13 | `ss_n40C_1v60` | `Xreg_value_a4_reg[27][30]` | 21.15 | 0.46 | **−10.61** | ❌ VIOLATED | 21.61 |
-| 14 | `ss_n40C_1v76` | `Xreg_value_a4_reg[27][30]` | 15.07 | 0.31 | **−4.38** | ❌ VIOLATED | 15.38 |
-| 15 | `tt_025C_1v80` | `Xreg_value_a4_reg[27][30]` | 8.90 | 0.16 | **+1.94** | ✅ MET | 9.06 |
-| 16 | `tt_100C_1v80` | `Xreg_value_a4_reg[27][30]` | 8.81 | 0.10 | **+2.09** | ✅ MET | 8.91 |
-
-<sub>¹ Endpoints are prefixed `core/CPU_` in the reports. &nbsp; ² Approx. min period = data arrival + library setup of the reported path only, with an ideal clock — a quick indicator, **not** a full f<sub>max</sub> analysis.</sub>
-
----
-
-## 8. WNS & TNS Analysis
-
-| Term | Definition used here |
+| Setup metric | Reported result |
 |---|---|
-| **Setup slack** | Required time − arrival time. Positive = met, negative = violated |
-| **WNS** | Worst negative slack at a corner; plotted as `MIN(0, worst slack)` so passing corners show 0 |
-| **TNS** | Sum of negative slack over all failing endpoints at a corner; 0 when nothing fails |
+| Most negative maximum slack | -62.56 ns |
+| Critical corner | `ss_n40C_1v28` |
+| Setup status at the critical corner | VIOLATED |
+| Other affected corners | All other listed SS corners |
+| Listed FF and TT corners | MET |
 
-### Consolidated WNS / TNS
+The negative maximum slack at the SS corners indicates that the reported setup requirements are not satisfied under those conditions. Critical-path reports and constraint checks are needed to investigate the cause and identify suitable optimization measures.
 
-| Corner | VDD (V) | Temp | WNS (ns) | TNS (ns) | Failing endpoints (≥)³ |
-|---|--:|--:|--:|--:|--:|
-| `ss_100C_1v40` | 1.40 | 100 °C | −17.12 | −2,599.51 | 152 |
-| `ss_100C_1v60` | 1.60 | 100 °C | −7.87 | −892.70 | 114 |
-| `ss_n40C_1v28` | 1.28 | −40 °C | **−62.56** | **−13,957.59** | **224** |
-| `ss_n40C_1v35` | 1.35 | −40 °C | −39.70 | −7,993.79 | 202 |
-| `ss_n40C_1v40` | 1.40 | −40 °C | −29.69 | −5,466.48 | 185 |
-| `ss_n40C_1v44` | 1.44 | −40 °C | −23.91 | −4,107.19 | 172 |
-| `ss_n40C_1v60` | 1.60 | −40 °C | −10.61 | −1,355.80 | 128 |
-| `ss_n40C_1v76` | 1.76 | −40 °C | −4.38 | −367.93 | 85 |
-| All 6 FF + 2 TT corners | — | — | 0.00 | 0.00 | 0 |
+## WNS and TNS Analysis
 
-<sub>³ Lower bound = ⌈ \|TNS\| / \|WNS\| ⌉, because no endpoint can be worse than the WNS.</sub>
+### Worst Negative Slack (WNS)
 
-### Excel workbook — `sky130_WNS_TNS_analysis.xlsx`
+WNS represents the worst slack among the relevant timing paths in an analysis. A negative WNS indicates that at least one path violates its timing requirement.
 
-Sheets: `Read_Me` · `WNS_TNS_Table` · `WNS_Plot` · `TNS_Plot` · `Graph_Data` · `Graphs`
+The report identifies the following result:
 
-**Sheet `WNS_TNS_Table`** — one row per corner, formulas for WNS / TNS / Status and a summary block (16 analysed, 8 MET, 8 VIOLATED):
-
-![WNS_TNS_Table sheet](images/02_wns_tns_table.jpg)
-
-**Sheet `Graph_Data`** — chart source, every cell linked back to the table so edits propagate automatically:
-
-![Graph_Data sheet](images/03_graph_data.jpg)
-
-**Sheet `Graphs`** — TNS (left) and WNS (right) across the 16 corners:
-
-![TNS and WNS charts](images/04_wns_tns_charts.jpg)
-
-> Both curves share the same shape. WNS is a single path (−62.56 ns) whereas TNS accumulates every failing endpoint (−13,957.59 ns), so it is orders of magnitude larger.
-
----
-
-## 9. Key Findings
-
-1. **Clean pass/fail split.** All 6 FF and both TT corners meet 11 ns (slack **+1.94 → +5.59 ns**); all 8 SS corners violate it (**−4.38 → −62.56 ns**).
-2. **Voltage dominates.** Along the `ss_n40C` series slack climbs steadily with supply: −62.56 (1.28 V) → −39.70 → −29.69 → −23.91 → −10.61 → −4.38 ns (1.76 V). The `ff_n40C` series improves from +2.28 ns (1.56 V) to +5.59 ns (1.95 V).
-3. **Large process spread.** The reported path takes 5.37 ns (`ff_n40C_1v95`), 8.90 ns (`tt_025C_1v80`) and 71.70 ns (`ss_n40C_1v28`) — the slowest corner is ≈ 8× typical and ≈ 13× the fastest. *(Endpoints differ slightly between corners, so treat ratios as indicative.)*
-4. **Temperature inversion confirmed.** Cold is slower at low VDD; the hot/cold gap shrinks near 1.95 V and is only ≈ 0.09 ns at TT.
-5. **Setup time scales too.** Capture-flop setup grows from 0.04 ns (fastest) to 1.86 ns (`ss_n40C_1v28`), so part of the loss comes from the flop itself, not just the combinational chain.
-6. **One structural culprit.** Across corners the critical path is the **ripple-carry chain of full adders** (`sky130_fd_sc_hd__fa_1` COUT cells) launched from `CPU_is_addi_a3_reg`. The corner simply rescales that chain's delay. The clock is ideal (0.00 ns) in every run.
-7. **Practical reading.** To close even the mildest SS corner (`ss_n40C_1v76`) this path needs ≈ **15.4 ns**; options are relaxing the clock or restructuring the adder / ALU path. Whether the very-low-voltage corners must be met depends on the supply range the design is specified for.
-
----
-
-## 10. Per-Corner Terminal Evidence
-
-Each screenshot shows the tail of the OpenSTA `report_checks` output — data arrival, required time and slack. Expand a group to view them.
-
-<details>
-<summary><b>🟢 Fast-Fast corners (6) — all MET</b></summary>
-
-#### 1 · `ff_100C_1v65` — +4.05 ns (MET)
-Fast silicon, 100 °C, supply 8.3 % below nominal. Fast but hot and slightly under-volted.
-![ff_100C_1v65](images/corner_01_ff_100C_1v65.jpg)
-
-#### 2 · `ff_100C_1v95` — +5.57 ns (MET)
-Fast silicon, 100 °C, supply 8.3 % above nominal. Shortest gate delays with peak power and leakage — the classic hold, IR-drop and electromigration stress point.
-![ff_100C_1v95](images/corner_02_ff_100C_1v95.jpg)
-
-#### 3 · `ff_n40C_1v56` — +2.28 ns (MET)
-Fast silicon, cold, 13 % under-voltage. Slowest of the FF set (8.64 ns) because of temperature inversion.
-![ff_n40C_1v56](images/corner_03_ff_n40C_1v56.jpg)
-
-#### 4 · `ff_n40C_1v65` — +3.41 ns (MET)
-Fast silicon, cold, 8.3 % under-voltage. Shows how quickly delay recovers as VDD rises.
-![ff_n40C_1v65](images/corner_04_ff_n40C_1v65.jpg)
-
-#### 5 · `ff_n40C_1v76` — +4.43 ns (MET)
-Fast silicon, cold, nearly nominal supply — realistic for a tightly regulated 1.8 V rail.
-![ff_n40C_1v76](images/corner_05_ff_n40C_1v76.jpg)
-
-#### 6 · `ff_n40C_1v95` — +5.59 ns (MET) 🏅 best slack
-Fast silicon, cold, 8.3 % over-voltage. Shortest path in the sweep (5.37 ns).
-![ff_n40C_1v95](images/corner_06_ff_n40C_1v95.jpg)
-
-</details>
-
-<details>
-<summary><b>🔴 Slow-Slow corners (8) — all VIOLATED</b></summary>
-
-#### 7 · `ss_100C_1v40` — −17.12 ns (VIOLATED)
-Slow silicon, hot, 22 % under-voltage — a deep low-power operating point.
-![ss_100C_1v40](images/corner_07_ss_100C_1v40.jpg)
-
-#### 8 · `ss_100C_1v60` — −7.87 ns (VIOLATED)
-Slow silicon, hot, 11 % under-voltage — the textbook worst-case-hot setup corner for a 1.8 V rail with a −10 % tolerance.
-![ss_100C_1v60](images/corner_08_ss_100C_1v60.jpg)
-
-#### 9 · `ss_n40C_1v28` — −62.56 ns (VIOLATED) ⚠️ worst corner
-Slow silicon, cold, 29 % under-voltage. Near-threshold behaviour, 71.70 ns arrival, well outside a normal ±10 % supply range.
-![ss_n40C_1v28](images/corner_09_ss_n40C_1v28.jpg)
-
-#### 10 · `ss_n40C_1v35` — −39.70 ns (VIOLATED)
-Slow silicon, cold, 25 % under-voltage. Small gate overdrive plus raised Vth at cold keeps delay extreme.
-![ss_n40C_1v35](images/corner_10_ss_n40C_1v35.jpg)
-
-#### 11 · `ss_n40C_1v40` — −29.69 ns (VIOLATED)
-Same voltage as corner 7 but cold — a clear demonstration of temperature inversion (−29.69 vs −17.12 ns).
-![ss_n40C_1v40](images/corner_11_ss_n40C_1v40.jpg)
-
-#### 12 · `ss_n40C_1v44` — −23.91 ns (VIOLATED)
-Slow silicon, cold, 20 % under-voltage; delays remain far above the TT / FF runs.
-![ss_n40C_1v44](images/corner_12_ss_n40C_1v44.jpg)
-
-#### 13 · `ss_n40C_1v60` — −10.61 ns (VIOLATED)
-Same voltage as corner 8 but cold; slightly slower than the hot case (−10.61 vs −7.87 ns). A realistic slow-cold setup corner.
-![ss_n40C_1v60](images/corner_13_ss_n40C_1v60.jpg)
-
-#### 14 · `ss_n40C_1v76` — −4.38 ns (VIOLATED)
-Mildest SS corner: slow and cold but almost nominal voltage. Still fails 11 ns by 4.38 ns.
-![ss_n40C_1v76](images/corner_14_ss_n40C_1v76.jpg)
-
-</details>
-
-<details>
-<summary><b>🔵 Typical-Typical corners (2) — both MET</b></summary>
-
-#### 15 · `tt_025C_1v80` — +1.94 ns (MET)
-Typical process, 25 °C, nominal 1.80 V — the reference corner used in `run.tcl`.
-![tt_025C_1v80](images/corner_15_tt_025C_1v80.jpg)
-
-#### 16 · `tt_100C_1v80` — +2.09 ns (MET)
-Typical process, 100 °C, nominal supply. Marginally faster than at 25 °C (8.81 vs 8.90 ns): temperature dependence is weak at nominal VDD.
-![tt_100C_1v80](images/corner_16_tt_100C_1v80.jpg)
-
-</details>
-
----
-
-## 11. Scope, Assumptions & Limitations
-
-| Topic | Note |
+| Metric | Reported value |
 |---|---|
-| **Setup only** | `report_checks` defaults to the max (setup) path. **Hold was not analysed** in these runs; add `report_checks -path_delay min` to cover it (most relevant at FF corners). |
-| **Single library for min and max** | Each run loads the same corner for `-min` and `-max`. A full sign-off run would pair an FF library (min) with an SS library (max) in one session. |
-| **Ideal clock** | Clock network delay and reconvergence pessimism are 0.00 ns because no clock tree exists at synthesis. Post-CTS results will differ. |
-| **TNS values need confirmation** | TNS = 0 for FF/TT follows directly from the screenshots. The eight SS TNS values in the workbook were entered from a reference sheet, not read from the screenshots — confirm each with `report_tns -max` before final submission. The failing-endpoint counts in §8 depend on them. |
-| **Tcl warning 168** | `unknown field delay_time` is harmless — `delay` and `time` columns print by default. Remove them from the `-fields` list to silence it. |
-| **Screenshot labelling** | Three screenshots were named by corner and the rest numerically; they were mapped to corners by library run order, which is consistent with the data (slack rises monotonically with VDD in each series). |
-| **Scrolled captures** | Screenshots show the tail of each path report, so the earliest cells are cut off; arrival, required time and slack are all visible. |
+| Worst setup slack | -62.56 ns |
+| Critical PVT corner | `ss_n40C_1v28` |
+| Timing result | Setup violation |
+
+The WNS comparison plot highlights `ss_n40C_1v28` as the corner with the most severe reported setup result. This corner should be prioritized when investigating the timing paths and applied constraints.
+
+### Total Negative Slack (TNS)
+
+TNS aggregates negative slack across the violating paths included in the timing analysis. It helps indicate the overall extent of setup-timing violations rather than describing only the single worst path.
+
+| Metric | Reported value |
+|---|---|
+| Most negative reported TNS | Approximately -13,555.8 ns |
+| Critical PVT corner | `ss_n40C_1v28` |
+| Interpretation | Significant aggregate setup-timing violations are reported |
+
+The TNS plot shows its most negative value at `ss_n40C_1v28`. Further examination of the critical paths, timing constraints, and report coverage is necessary before deciding which design or constraint changes are appropriate.
+
+## Timing Visualization
+
+The generated plots provide a visual summary of the reported timing metrics across the configured PVT corners.
+
+### WNS Across the 18 Corners
+
+The WNS plot compares the worst setup slack for each operating condition. The lowest reported value is approximately **-62.6 ns** at `ss_n40C_1v28`.
+
+### TNS Across the 18 Corners
+
+The TNS plot compares the accumulated negative slack at each corner. The most negative reported value is approximately **-13,555.8 ns**, also at `ss_n40C_1v28`.
+
+### WNS Compared with Minimum Hold Slack
+
+The combined timing plot contrasts the setup results with minimum hold slack. The reported hold slack remains positive across all listed corners, while negative setup slack appears at the SS corners.
+
+Together, these plots make it easier to identify timing-critical conditions and compare the reported behavior across the full corner set.
+
+## Screenshots and Evidence
+
+The following figures document the STA environment, timing constraints, library configuration, report-generation process, and extracted timing results.
+
+### Figure 1 — OpenSTA Timing Path Report
+
+Displays an example timing path with arrival time, required time, and slack information.
+
+<img width="448" height="471" alt="OpenSTA timing path analysis" src="https://github.com/user-attachments/assets/9aab51f9-cf10-45a8-b3aa-fd61ba1e232b" />
+
+### Figure 2 — SDC Timing Constraints
+
+Shows the clock and timing constraints supplied to the VSDBabySoC analysis flow.
+
+<img width="443" height="472" alt="SDC timing constraint file" src="https://github.com/user-attachments/assets/ffa73d90-c1d2-4ffc-b1c9-946a331ec709" />
+
+### Figure 3 — Multi-Library OpenSTA Script
+
+Illustrates the script used to configure timing libraries, load the synthesized netlist, and apply SDC constraints.
+
+<img width="502" height="474" alt="OpenSTA multi-library script" src="https://github.com/user-attachments/assets/937fa352-8786-4207-92f9-41988af283bb" />
+
+### Figure 4 — SKY130 HD Timing Library Directory
+
+Shows the characterized standard-cell timing libraries used in the multi-corner setup.
+
+<img width="715" height="474" alt="SKY130 HD timing library files" src="https://github.com/user-attachments/assets/63b85cbc-d32b-40c1-b68b-c1c6dad346af" />
+
+### Figure 5 — Multi-Corner Report Generation
+
+Documents the automated generation of timing reports for the configured corners.
+
+<img width="780" height="438" alt="Multi-corner STA report generation" src="https://github.com/user-attachments/assets/53ff68f6-d4e0-4d40-8f23-29607628034f" />
+
+### Figure 6 — Liberty Timing-Model Inspection
+
+Shows inspection of Liberty library pin definitions and timing-model information.
+
+<img width="780" height="440" alt="Liberty timing model inspection" src="https://github.com/user-attachments/assets/aea8d6d6-408d-4f5d-b31f-031785746616" />
+
+### Figure 7 — Hold Timing Report
+
+Displays a minimum-delay timing path with positive slack and a reported MET result.
+
+<img width="780" height="438" alt="Hold timing analysis" src="https://github.com/user-attachments/assets/b66da847-b7e1-42f9-8772-6e85c429be93" />
+
+### Figure 8 — Setup Timing Report
+
+Shows a maximum-delay timing path used to evaluate setup timing and calculate slack.
+
+<img width="780" height="439" alt="Setup timing analysis" src="https://github.com/user-attachments/assets/4eb70b0a-0b89-4a16-913c-891c36bc3954" />
+
+### Figure 9 — Slack Extraction Across 18 Corners
+
+Documents the extraction of corner-specific slack values from the generated reports.
+
+<img width="780" height="439" alt="Slack extraction across timing corners" src="https://github.com/user-attachments/assets/b33257d2-db32-4d0d-8db4-1acfdf49ddcd" />
+
+### Figure 10 — Report Archiving and Plot Generation
+
+Shows the timing-report archive and generation of the associated timing plots.
+
+<img width="780" height="439" alt="STA report archiving and plot generation" src="https://github.com/user-attachments/assets/7354fdf1-bd05-4ff1-991c-c34f06192f76" />
+
+### Figure 11 — Automated WNS and TNS Extraction
+
+Shows the process used to extract WNS and TNS values across the configured corners.
+
+<img width="780" height="441" alt="Automated WNS and TNS extraction" src="https://github.com/user-attachments/assets/bf92b4d2-70bd-4a8e-90ef-022cc3346136" />
+
+### Figure 12 — Extracted Timing Metrics
+
+Displays extracted WNS and TNS values for comparison between the reported fast and slow corners.
+
+<img width="567" height="472" alt="Extracted WNS and TNS values" src="https://github.com/user-attachments/assets/f9e9b2ee-3151-4c3a-b6cb-8a487e249be3" />
+
+### Figure 13 — Completion of Multi-Corner Extraction
+
+Documents the completion of timing-metric extraction for the 18-corner set.
+
+<img width="780" height="430" alt="Completion of multi-corner extraction" src="https://github.com/user-attachments/assets/3d3af7fd-7fcf-4d10-8bf8-ea676873a78d" />
+
+### Figure 14 — Timing Quality Plots
+
+Shows the plots used to compare WNS, TNS, and minimum hold slack across operating conditions.
+
+<img width="780" height="439" alt="Timing quality plots" src="https://github.com/user-attachments/assets/f5637ae0-e1ef-46ac-bc5c-186bf9520c52" />
+
+### Figure 15 — Worst Setup Slack Across 18 Corners
+
+Highlights the reported worst setup slack of approximately -62.6 ns at `ss_n40C_1v28`.
+
+<img width="780" height="439" alt="Worst setup slack across 18 corners" src="https://github.com/user-attachments/assets/63f74498-f768-403b-a7a1-28ff9f546318" />
+
+### Figure 16 — Total Negative Slack Across 18 Corners
+
+Shows the reported TNS comparison, with the lowest value of approximately -13,555.8 ns at `ss_n40C_1v28`.
+
+<img width="780" height="443" alt="Total negative slack across 18 corners" src="https://github.com/user-attachments/assets/e5873992-f00c-418e-a5aa-093ad4ca6412" />
+
+### Figure 17 — WNS and Minimum Hold Slack Comparison
+
+Compares the setup and hold metrics, showing positive reported minimum hold slack and negative setup slack at the affected SS corners.
+
+<img width="780" height="439" alt="WNS and minimum hold slack comparison" src="https://github.com/user-attachments/assets/c09b6624-8ef4-4d77-9b19-26c2383cbdd6" />
+
+## Key Findings
+
+The reported multi-corner timing analysis leads to the following observations:
+
+1. All 18 listed corners have positive minimum slack, and their reported hold status is MET.
+2. The listed FF and TT corners show positive maximum slack and pass the reported setup checks.
+3. Every listed SS corner exhibits negative maximum slack, indicating setup-timing violations.
+4. The worst reported setup slack is **-62.56 ns** at `ss_n40C_1v28`.
+5. The most negative reported TNS is approximately **-13,555.8 ns** at the same corner.
+6. The timing plots clearly distinguish the reported setup behavior from the positive hold-slack results.
+7. Multi-corner analysis identifies the operating conditions that need closer timing investigation.
+8. The generated reports provide a foundation for reviewing critical paths, validating constraints, and planning timing optimization.
+
+## Conclusion
+
+The VSDBabySoC design was evaluated using OpenSTA and SKY130 HD timing libraries across **18 PVT corners**. The analysis covered minimum-delay and maximum-delay paths and produced corner-specific reports, extracted timing metrics, and comparison plots.
+
+According to the supplied results, all listed hold checks pass, with minimum slack remaining positive across the evaluated corners. The setup results, however, reveal violations at all listed SS corners.
+
+The most critical reported condition is `ss_n40C_1v28`, with a worst setup slack of **-62.56 ns** and a TNS of approximately **-13,555.8 ns**.
+
+These findings demonstrate how multi-corner STA can expose timing weaknesses that may not be visible when examining only a single operating condition. The affected paths and constraints should be investigated further to identify the causes of the setup violations and determine suitable corrective actions.
+
+**Final assessment:** The reported hold checks pass across the 18 listed corners, while setup timing requires further investigation at the affected SS corners.
+
+## Tools and Technologies
+
+- **OpenSTA** — Static timing analysis and timing-report generation.
+- **SKY130 HD** — Standard-cell timing libraries.
+- **VSDBabySoC** — Design under evaluation.
+- **Verilog synthesized netlist** — Circuit representation used for timing analysis.
+- **SDC** — Timing constraints.
+- **Liberty files** — Characterized timing models for standard cells and design components.
+- **Multi-corner run scripts** — Automated analysis across the configured PVT conditions.
+- **Timing reports** — Corner-specific setup and hold results.
+- **WNS/TNS extraction** — Quantitative comparison of timing performance.
+- **Timing plots** — Visual analysis of results across operating corners.
 
 ---
 
-## 12. How to Reproduce
-
-```tcl
-# run.tcl — swap only the first two lines for each corner
-read_liberty -min /path/to/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-read_liberty -max /path/to/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-
-read_liberty -min /path/to/lib/avsdpll.lib
-read_liberty -max /path/to/lib/avsdpll.lib
-read_liberty -min /path/to/lib/avsddac.lib
-read_liberty -max /path/to/lib/avsddac.lib
-
-read_verilog /path/to/vsdbabysoc.synth.v
-link_design vsdbabysoc
-read_sdc /path/to/sdc/vsdbabysoc_synthesis.sdc
-
-report_checks -fields {capacitance slew fanout}
-report_worst_slack -max
-report_tns
-```
-
-```bash
-sta -no_splash run.tcl
-```
-
-Repeat for each of the 16 `.lib` files, record the slack, arrival and setup values, and update the workbook.
-
----
-
-## 13. Conclusion
-
-Multi-corner STA of the synthesized VSDBabySoC netlist shows that the design **meets its 11 ns clock at every fast and typical corner** (8 of 16) and **fails at every slow corner** (8 of 16). The worst case is `ss_n40C_1v28` with **WNS −62.56 ns**, and slack improves steadily as supply rises, reaching −4.38 ns at `ss_n40C_1v76`.
-
-The limiting structure is the same everywhere — a ripple-carry adder chain feeding the register file — so closing timing at slow corners means either **relaxing the clock** (≈ 15.4 ns for the mildest SS corner) or **restructuring the adder / ALU path** (carry-lookahead, carry-select or pipelining). Hold analysis, a proper paired min/max run, and post-CTS timing remain as the next steps.
-
----
-
-## 14. Tools & Technologies
-
-- **OpenSTA** — static timing engine
-- **SkyWater SKY130 `sky130_fd_sc_hd`** — 16 Liberty timing corners
-- **Synthesized VSDBabySoC netlist** and **SDC constraints**
-- **`avsdpll.lib` / `avsddac.lib`** — analog macro timing models
-- **Tcl** — `run.tcl` run script
-- **Microsoft Excel** — WNS / TNS computation and plotting
-
----
-
-<div align="center">
-
-*Prepared by **Shaik Farida** — VSD Multi-Corner STA Study*
-
-</div>
-
+<p align="center">
+  <b>“Accurate timing analysis is a key step toward reliable digital design.”</b>
+  <br>
+  <i>VSDBabySoC | OpenSTA | SKY130 HD | Multi-Corner STA</i>
+</p>
