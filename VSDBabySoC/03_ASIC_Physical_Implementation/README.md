@@ -446,9 +446,9 @@ A complete multi-corner analysis should use the corresponding characterized libr
 
 Each corner must be analyzed with its corresponding models and constraints; a report from one corner should not simply be relabeled as another.
 
-## Hold Timing Results
+## TNS Timing Results
 
-The supplied **Hold Slack vs PVT Corners** plot summarizes minimum-delay timing behavior across the 16 analyzed corners.
+The supplied **tns vs PVT Corners** plot summarizes minimum-delay timing behavior across the 16 analyzed corners.
 
 | Metric | Reported result |
 |---|---:|
@@ -458,7 +458,7 @@ The supplied **Hold Slack vs PVT Corners** plot summarizes minimum-delay timing 
 | Maximum hold slack | 1.68 ns |
 | Corner with maximum hold slack | `ss_n40C_1v28` |
 
-<img width="853" height="429" alt="Hold slack across 16 PVT corners" src="https://github.com/user-attachments/assets/c936dff7-e101-499d-802d-3517e1025e9f" />
+<img width="1600" height="900" alt="tns" src="https://github.com/user-attachments/assets/927035ff-c4ca-425a-b14c-6b41e20fd0aa" />
 
 ### Interpretation
 
@@ -480,7 +480,7 @@ The **Worst Slack (max) vs PVT Corners** plot compares the reported maximum-dela
 | Highest setup slack | 9.03 ns |
 | Corner with highest setup slack | `ff_100C_1v95` |
 
-<img width="851" height="419" alt="Worst setup slack across 16 PVT corners" src="https://github.com/user-attachments/assets/dc1847cf-17f1-4b9f-b9e2-6d27077bc1d5" />
+<img width="1600" height="900" alt="wns" src="https://github.com/user-attachments/assets/45b269c3-27dc-4a2d-8a7b-12c7e115cdf8" />
 
 ### Interpretation
 
