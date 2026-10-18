@@ -1,479 +1,236 @@
-# RTL Design, Synthesis & ASIC Physical Design Workshop
+# RTL Design & VLSI Physical Design Workshop
 
 <p align="center">
-  <img src="https://img.shields.io/badge/RTL-Verilog-blue?style=for-the-badge&logo=verilog" alt="RTL Verilog">
-  <img src="https://img.shields.io/badge/Synthesis-Yosys-orange?style=for-the-badge" alt="Yosys">
-  <img src="https://img.shields.io/badge/Technology-SKY130HD-0078D4?style=for-the-badge" alt="SKY130HD">
-  <img src="https://img.shields.io/badge/Physical%20Design-OpenROAD-8A2BE2?style=for-the-badge" alt="OpenROAD">
-  <img src="https://img.shields.io/badge/Timing-OpenSTA-red?style=for-the-badge" alt="OpenSTA">
+  <img src="https://img.shields.io/badge/RTL-Verilog-blue?style=for-the-badge" alt="RTL Verilog">
+  <img src="https://img.shields.io/badge/Simulation-Icarus%20Verilog%20%7C%20GTKWave-orange?style=for-the-badge" alt="Simulation tools">
+  <img src="https://img.shields.io/badge/Synthesis-Yosys-purple?style=for-the-badge" alt="Yosys">
+  <img src="https://img.shields.io/badge/Technology-SKY130-green?style=for-the-badge" alt="SKY130">
+  <img src="https://img.shields.io/badge/Physical%20Design-OpenLane%20%7C%20OpenROAD-red?style=for-the-badge" alt="Physical design">
+  <img src="https://img.shields.io/badge/Timing%20Analysis-OpenSTA-black?style=for-the-badge" alt="OpenSTA">
 </p>
 
 <p align="center">
-  <b>A hands-on journey through RTL design, functional verification, logic synthesis, optimization, ASIC physical implementation, and static timing analysis.</b>
+  <b>My hands-on journey from Verilog RTL design and logic synthesis to ASIC physical implementation and static timing analysis.</b>
 </p>
 
 <p align="center">
-  <a href="#-overview">Overview</a> •
-  <a href="#-quick-navigation">Navigation</a> •
-  <a href="#-rtl-design--synthesis-modules">RTL Modules</a> •
+  <a href="#-about-the-repository">About</a> •
+  <a href="#-repository-roadmap">Repository Roadmap</a> •
+  <a href="#-rtl-design--synthesis">RTL Design</a> •
+  <a href="#-asic-physical-design">Physical Design</a> •
   <a href="#-vsdbabysoc-project">VSDBabySoC</a> •
-  <a href="#-physical-design-modules">Physical Design</a> •
-  <a href="#-tools--technologies">Tools</a> •
-  <a href="#-author">Author</a>
+  <a href="#-tools--technologies">Tools</a>
 </p>
 
 ---
 
-## Overview
+## About the Repository
 
-Welcome to my **RTL Design Workshop repository**, where I document my practical learning experience in digital design, Verilog programming, simulation, synthesis, optimization, and open-source ASIC implementation.
+Welcome to my **RTL Design Workshop repository**!
 
-This repository brings together my workshop modules, practical experiments, design observations, simulation results, timing reports, and technical documentation. It also includes my work on **VSDBabySoC**, covering the progression from RTL-level understanding to synthesis, physical implementation, and multi-corner Static Timing Analysis (STA).
+I created this repository to document my practical learning experience in **VLSI design, Verilog HDL, digital circuit simulation, logic synthesis, standard-cell libraries, ASIC physical design, and static timing analysis**.
 
-Rather than focusing only on theoretical concepts, I use this repository to understand how hardware designs are described, verified, mapped to standard cells, physically implemented, and evaluated against timing constraints.
+Throughout this workshop, I explored how a digital design progresses from RTL code to a synthesized netlist and then through physical implementation and timing evaluation. I documented my experiments, concepts, terminal outputs, circuit visualizations, waveforms, and implementation results in individual module and project folders.
 
-The repository is organized into dedicated sections so that each module and implementation stage can be explored independently.
+This repository brings together my RTL design exercises, VLSI learning notes, physical design modules, and my VSDBabySoC implementation work in one place.
 
-## Objectives
+## What I Explored
 
-- Develop a practical understanding of Verilog RTL design and digital logic.
-- Write and verify combinational and sequential circuits.
-- Explore simulation, waveform analysis, and testbench development.
-- Understand RTL synthesis, technology mapping, and logic optimization.
-- Investigate gate-level simulation and synthesis-simulation mismatches.
-- Study the SKY130 process design kit and open-source EDA ecosystem.
-- Explore floorplanning, placement, clock-tree synthesis, and routing.
-- Understand Power Distribution Network (PDN) generation and physical verification.
-- Analyze setup and hold timing using OpenSTA.
-- Document the complete learning process with organized notes and supporting evidence.
+- Writing and understanding Verilog RTL.
+- Simulating digital circuits and examining waveforms.
+- Synthesizing RTL designs using Yosys.
+- Exploring hierarchical and flat synthesis.
+- Understanding standard-cell libraries and technology mapping.
+- Studying combinational and sequential logic optimization.
+- Comparing RTL simulation with gate-level simulation.
+- Understanding CMOS inverter design and characterization.
+- Exploring floorplanning, placement, power planning, and routing.
+- Learning static timing analysis and clock tree synthesis.
+- Working with the VSDBabySoC design and multi-corner timing analysis.
 
 ---
 
-## Quick Navigation
+## Repository Roadmap
 
-| Section | Description | Explore |
+The repository is organized into RTL learning modules, physical design modules, a VSDBabySoC project, and VSD VLSI learning notes.
+
+| Section | Focus |
+|---|---|
+| [Module 1](#-rtl-design--synthesis) | RTL simulation, synthesis, and standard-cell libraries |
+| [Module 2](#-rtl-design--synthesis) | Multi-module designs, flip-flops, and synthesis optimization |
+| [Module 3](#-rtl-design--synthesis) | Combinational and sequential logic optimization |
+| [Module 4](#-rtl-design--synthesis) | Gate-level simulation and synthesis–simulation mismatch |
+| [Module 5](#-rtl-design--synthesis) | Conditional constructs and loops in Verilog |
+| [Physical Design Modules](#-asic-physical-design) | ASIC implementation, CMOS design, timing, and routing |
+| [VSDBabySoC](#-vsdbabysoc-project) | RTL, synthesis, physical implementation, and timing analysis |
+| [VSD VLSI](#-vsd-vlsi-learning-notes) | VLSI fundamentals and design-flow learning notes |
+
+---
+
+## RTL Design & Synthesis
+
+These modules document my hands-on experiments with Verilog RTL, simulation, synthesis, optimization, and gate-level verification.
+
+### 🔹 Module 1 — Introduction to RTL and Synthesis
+
+I explored the fundamentals of RTL simulation, the role of testbenches, synthesis using Yosys, and the information available inside standard-cell library files.
+
+| Day | Topics | Documentation |
 |---|---|---|
-| RTL Design & Synthesis | Verilog, simulation, synthesis, and optimization | [View Modules](#-rtl-design--synthesis-modules) |
-| VSDBabySoC | SoC design, verification, synthesis, and implementation | [Explore Project](#-vsdbabysoc-project) |
-| Physical Design | Floorplanning, placement, CTS, routing, and timing | [View Modules](#-physical-design-modules) |
-| Tools & Technologies | Open-source EDA tools and design formats | [View Tools](#-tools--technologies) |
-| Learning Outcomes | Key technical concepts explored | [View Learnings](#-key-learning-outcomes) |
+| Day 1 | 2:1 MUX, Verilog simulation, Icarus Verilog, GTKWave | [📘 Open Day 1](Module%201/Day1/README.md) |
+| Day 2 | RTL-to-netlist synthesis, Yosys, `.lib` files, cell flavors | [📘 Open Day 2](Module%201/Day2/README.md) |
+| Day 3 | SKY130 standard-cell library and AND-cell exploration | [📘 Open Day 3](Module%201/Day3/README.md) |
+
+### 🔹 Module 2 — RTL Structure and Sequential Logic
+
+This module covers multi-module RTL designs, hierarchical and flat synthesis, flip-flop coding styles, and synthesis optimizations.
+
+| Day | Topics | Documentation |
+|---|---|---|
+| Day 1 | Multiple modules and hierarchical vs. flat synthesis | [📘 Open Day 1](Module%202/Day1/README.md) |
+| Day 2 | Flip-flops, synchronous reset, asynchronous reset, and set | [📘 Open Day 2](Module%202/Day2/README.md) |
+| Day 3 | Arithmetic RTL and synthesis optimizations | [📘 Open Day 3](Module%202/Day3/README.md) |
+
+### 🔹 Module 3 — Logic Optimization
+
+I explored how synthesis tools simplify digital logic and optimize sequential circuits while preserving the required behavior.
+
+| Day | Topics | Documentation |
+|---|---|---|
+| Day 1 | Combinational logic optimization and Boolean simplification | [📘 Open Day 1](Module%203/Day1/README.md) |
+| Day 2 | Sequential logic optimization and constant DFF inputs | [📘 Open Day 2](Module%203/Day2/README.md) |
+| Day 3 | Counter optimization and unused sequential logic | [📘 Open Day 3](Module%203/Day3/README.md) |
+
+### 🔹 Module 4 — Gate-Level Simulation
+
+This module focuses on validating synthesized hardware and understanding how Verilog coding styles can cause differences between RTL simulation and synthesized behavior.
+
+| Day | Topics | Documentation |
+|---|---|---|
+| Day 1 | Gate-level simulation and ternary-operator-based MUX | [📘 Open Day 1](Module%204/Day1/README.md) |
+| Day 2 | Blocking and non-blocking assignments, synthesis–simulation mismatch | [📘 Open Day 2](Module%204/Day2/README.md) |
+
+### 🔹 Module 5 — Verilog Constructs
+
+I explored conditional statements and looping constructs used to describe decision-making logic and repeated hardware structures.
+
+| Day | Topics | Documentation |
+|---|---|---|
+| Day 1 | `if`, `case`, incomplete assignments, and latch inference | [📘 Open Day 1](Module%205%20/Day1/README.md) |
+| Day 2 | `for` loops and generate loops | [📘 Open Day 2](Module%205%20/Day2/README.md) |
 
 ---
 
-## Repository Contents
+## 🏗️ ASIC Physical Design
 
-| Directory | Focus |
+The physical design modules document my exploration of the stages involved in transforming a synthesized digital circuit into a physical layout.
+
+### 🔸 Physical Design Module 1 — ASIC Implementation Flow
+
+I explored the ASIC physical design flow using OpenLane and the SKY130 PDK, including floorplanning, power planning, placement, routing, timing analysis, and physical verification.
+
+**[📂 Explore Physical Design Module 1](PD_Module%201/README.md)**
+
+### 🔸 Physical Design Module 2 — Floorplanning and Power Integrity
+
+This module covers core and die dimensions, utilization, aspect ratio, placement, power planning, library characterization, clock tree synthesis, and standard-cell design concepts.
+
+**[📂 Explore Physical Design Module 2](PD_Module%202/README.md)**
+
+### 🔸 Physical Design Module 3 — CMOS Inverter Design
+
+I explored CMOS inverter design, SPICE simulation, transient response, voltage transfer characteristics, transistor sizing, SKY130 standard-cell layout, post-layout simulation, and CMOS fabrication.
+
+**[📂 Explore Physical Design Module 3](PD_Module%203/README.md)**
+
+### 🔸 Physical Design Module 4 — Timing Analysis and CTS
+
+This module focuses on pre-layout timing analysis, standard-cell timing models, setup timing, clock uncertainty, timing optimization, clock tree synthesis, and signal integrity.
+
+**[📂 Explore Physical Design Module 4](PD_Module%204/README.md)**
+
+### 🔸 Physical Design Module 5 — Routing and Verification
+
+I explored routing, Power Distribution Network (PDN) implementation, detailed routing, Design Rule Checking (DRC), parasitic extraction, and post-route static timing analysis.
+
+**[📂 Explore Physical Design Module 5](PD_Module%205/README.md)**
+
+---
+
+## 🔬 VSDBabySoC Project
+
+The `VSDBabySoC` directory brings together my work on the BabySoC design, from RTL exploration and functional verification through synthesis, physical implementation, and timing analysis.
+
+| Stage | What it covers | Documentation |
+|---|---|---|
+| 1. RTL Design & Functional Verification | RTL exploration, simulation, testbenches, and waveform analysis | [📘 Explore Stage 1](VSDBabySoC/01_RTL_Design_and_Functional_Verification/README.md) |
+| 2. Logic Synthesis & Gate-Level Verification | Yosys synthesis, SKY130 technology mapping, and GLS | [📘 Explore Stage 2](VSDBabySoC/02_Logic_Synthesis_and_Gate_Level_Verification/README.md) |
+| 3. ASIC Physical Implementation | Physical design implementation and timing evaluation | [📘 Explore Stage 3](VSDBabySoC/03_ASIC_Physical_Implementation/README.md) |
+| 4. Multi-Corner Static Timing Analysis | OpenSTA, PVT corners, setup and hold checks, and timing reports | [📘 Explore Stage 4](VSDBabySoC/04_Multi_Corner_Static_Timing_Analysis/README.md) |
+
+**[📂 Open the VSDBabySoC project overview](VSDBabySoC/README.md)**
+
+---
+
+## VSD VLSI Learning Notes
+
+This section contains my VSD VLSI learning notes, covering introductory VLSI concepts, the design flow, simulation, synthesis, and related practical exercises.
+
+- **Week 1:** [📘 Explore Week 1](VSD_VLSI/Week%201/README.md)
+- **Week 2:** [📘 Explore Week 2](VSD_VLSI/Week%202/README.md)
+
+---
+
+## Tools & Technologies
+
+The repository documents experiments involving the following tools and technologies.
+
+| Tool / Technology | Purpose |
 |---|---|
-| `Module 0` – `Module 5` | RTL design, Verilog, simulation, synthesis, and optimization |
-| `VSDBabySoC/` | Integrated SoC design and implementation documentation |
-| `PD_Module 1` – `PD_Module 5` | ASIC physical design concepts and implementation flow |
-| `VSD_VLSI/` | Additional VLSI workshop material, where available |
-| `Assignment/` | Sequence detector design and verification, where available |
+| Verilog HDL | RTL design and digital hardware description |
+| Icarus Verilog | RTL and gate-level simulation |
+| GTKWave | Waveform visualization and debugging |
+| Yosys | Logic synthesis and netlist generation |
+| SKY130 PDK | Open-source semiconductor process design kit |
+| Standard-cell Liberty files | Cell functionality and timing characterization |
+| OpenLane | Automated ASIC implementation flow |
+| OpenROAD | Physical design implementation |
+| OpenSTA | Static timing analysis |
+| Magic | Layout inspection and physical verification workflows |
+| Netgen | Layout-versus-schematic comparison |
+| NGSPICE | Circuit-level simulation |
+| Linux and Tcl | Command-line workflows and design-flow scripting |
 
-*The documentation and experiment files are maintained in their respective folders. Some sections contain detailed lab notes, screenshots, waveforms, or implementation reports.*
-
----
-
-# RTL Design & Synthesis Modules
-
-These modules focus on describing digital hardware using Verilog and understanding how RTL is simulated, synthesized, and optimized.
-
-## Module 1 — Introduction to Verilog RTL Design and Synthesis
-
-**Focus:** Understanding the basic RTL-to-netlist workflow.
-
-Topics covered:
-- Digital design and RTL design flow.
-- Verilog modules and testbench development.
-- Icarus Verilog simulation.
-- GTKWave waveform analysis.
-- 2:1 multiplexer implementation.
-- Yosys synthesis.
-- Standard-cell libraries and technology mapping.
-- Gate-level netlist generation.
-
-📂 [Explore Module 1](../Module%201/README.md)
-
-## Module 2.1 — Timing Libraries, Hierarchical and Flat Synthesis
-
-**Focus:** Understanding design hierarchy and synthesis structure.
-
-Topics covered:
-- RTL coding and module integration.
-- Hierarchical versus flat synthesis.
-- Multiple-module design.
-- RTL simulation and verification.
-- Synthesis using Yosys.
-- Gate-level netlist analysis.
-- Technology mapping and timing-library concepts.
-- Efficient flip-flop coding styles.
-
-📂 [Explore Module 2.1](../Module%202.1/README.md)
-
-## Module 2.2 — Flip-Flop Design and SKY130 Technology Mapping
-
-**Focus:** Sequential logic and flip-flop implementation.
-
-Topics covered:
-- Asynchronous-reset D flip-flop.
-- Asynchronous-set D flip-flop.
-- Synchronous-reset D flip-flop.
-- Flip-flop simulation and synthesis.
-- SKY130 standard-cell mapping.
-- Synthesis optimization experiments.
-
-📂 [Explore Module 2.2](../Module%202.2/README.md)
-
-## Module 3 — Combinational and Sequential Logic Optimization
-
-**Focus:** Exploring techniques that simplify or improve hardware implementation.
-
-Topics covered:
-- Constant propagation.
-- State optimization.
-- Logic cloning.
-- Retiming concepts.
-- Combinational logic optimization.
-- Sequential logic optimization.
-- Practical synthesis experiments.
-
-📂 [Explore Module 3](../Module%203/README.md)
-
-## Module 4 — Gate-Level Simulation and Synthesis-Simulation Mismatch
-
-**Focus:** Understanding how simulation semantics relate to synthesized hardware.
-
-Topics covered:
-- Gate-Level Simulation (GLS).
-- Blocking and non-blocking assignments.
-- Synthesis-simulation mismatch.
-- Ternary operators and multiplexer inference.
-- RTL and gate-level behavior comparison.
-- Common Verilog coding pitfalls.
-- Correcting RTL and examining synthesis results.
-
-📂 [Explore Module 4](../Module%204/README.md)
-
-## Module 5 — RTL Coding Constructs and Synthesis Optimization
-
-**Focus:** Understanding how coding styles influence hardware inference.
-
-Topics covered:
-- If-else and nested if-else statements.
-- Inferred latches.
-- Case statements and incomplete cases.
-- For loops and generate blocks.
-- Ripple Carry Adder (RCA).
-- 4:1 multiplexer using a for loop.
-- 8:1 demultiplexer using case and loop constructs.
-- 8-bit ripple carry adder using a generate block.
-- Synthesis behavior and optimization.
-
-📂 [Explore Module 5](../Module%205/README.md)
+*The exact tool used depends on the experiment and module.*
 
 ---
 
-# VSDBabySoC Project
+## My Learning Journey
 
-## Project Overview
+Through these practical exercises, I explored how different stages of digital IC design connect to one another.
 
-**VSDBabySoC** is an educational System-on-Chip project that combines a RISC-V-based processor with clock-generation and digital-to-analog conversion blocks.
+**RTL Design → Functional Simulation → Logic Synthesis → Gate-Level Verification → Physical Design → Static Timing Analysis**
 
-My VSDBabySoC documentation explores the major stages of an ASIC development workflow, from RTL inspection and functional verification to logic synthesis, physical implementation, and multi-corner timing analysis.
+I also learned the importance of examining waveforms, understanding synthesized netlists, exploring standard-cell libraries, and interpreting timing reports rather than relying only on RTL code.
 
-The project provides a practical way to connect digital design concepts with the constraints and considerations involved in implementing a hardware design using the SKY130HD technology platform.
-
-### Core components
-
-| Component | Purpose |
-|---|---|
-| **RVMYTH** | RISC-V-based processor core for digital processing |
-| **PLL** | Phase-Locked Loop block for clock generation |
-| **DAC** | Digital-to-Analog Converter block for analog output conversion |
-
-### High-level architecture
-
-```mermaid
-flowchart TD
-    PLL["PLL<br/>Clock Generation"] --> CPU["RVMYTH<br/>RISC-V Processor"]
-    CPU --> DAC["DAC<br/>Digital-to-Analog Conversion"]
-    CPU --> DIGITAL["Digital Outputs"]
-    DAC --> ANALOG["Analog Output"]
-```
-
-## VSDBabySoC — Complete Design Flow
-
-```mermaid
-flowchart TD
-    A["RTL Design and Inspection"]
-    B["Functional Simulation"]
-    C["Logic Synthesis"]
-    D["Gate-Level Verification"]
-    E["ASIC Physical Implementation"]
-    F["Multi-Corner Static Timing Analysis"]
-    G["Results and Documentation"]
-
-    A --> B --> C --> D --> E --> F --> G
-```
-
-## VSDBabySoC Documentation
-
-### 01 — RTL Design and Functional Verification
-
-Explore the RTL hierarchy, module interfaces, testbench concepts, simulation behavior, and waveform analysis.
-
-**Key areas:**
-- Verilog RTL inspection.
-- Processor and peripheral integration.
-- Functional simulation.
-- Testbench verification.
-- GTKWave signal analysis.
-
-📂 [Open RTL Design and Functional Verification](./01_RTL_Design_and_Functional_Verification/README.md)
-
-### 02 — Logic Synthesis and Gate-Level Verification
-
-Explore how RTL is transformed into a gate-level netlist and how the synthesized design can be examined through simulation and reports.
-
-**Key areas:**
-- Yosys synthesis.
-- Technology mapping.
-- Synthesized netlist inspection.
-- Gate-Level Simulation.
-- RTL and gate-level behavior comparison.
-
-📂 [Open Logic Synthesis and Gate-Level Verification](./02_Logic_Synthesis_and_Gate_Level_Verification/README.md)
-
-### 03 — ASIC Physical Implementation
-
-Explore the physical implementation stages of VSDBabySoC using the configured OpenROAD flow and SKY130HD platform.
-
-**Key areas:**
-- Technology and physical-library configuration.
-- Floorplanning and macro placement.
-- Tapcell insertion and PDN generation.
-- Global and detailed placement.
-- Clock Tree Synthesis.
-- Global routing and routed-net inspection.
-- Physical design logs, reports, and layout visualization.
-
-📂 [Open ASIC Physical Implementation](./03_ASIC_Physical_Implementation/README.md)
-
-### 04 — Multi-Corner Static Timing Analysis
-
-Explore setup and hold timing behavior using OpenSTA and the configured SKY130HD timing libraries.
-
-**Key areas:**
-- Timing-library configuration.
-- SDC constraints.
-- PVT corner analysis.
-- Setup and hold slack.
-- Worst Slack and Total Negative Slack.
-- Timing report extraction and comparison.
-- Timing constraints and unconstrained endpoints.
-
-📂 [Open Multi-Corner Static Timing Analysis](./04_Multi_Corner_Static_Timing_Analysis/README.md)
+Each module represents a step in my continued development of practical VLSI design and implementation skills.
 
 ---
 
-# Physical Design Modules
+## About Me
 
-The physical design section explores how a synthesized digital design is transformed into a physical layout while accounting for placement, power delivery, clock distribution, routing, and timing.
+I am an Electronics and Communication Engineering student interested in **VLSI design, digital electronics, RTL development, and semiconductor implementation**.
 
-## PD Module 1 — Physical Design Fundamentals
+This repository serves as a record of my workshop experiments, technical learning, and hands-on exploration of open-source EDA tools.
 
-**Focus:** Introduction to the ASIC physical implementation process.
-
-Topics include:
-- RTL-to-GDSII flow overview.
-- Open-source physical-design tools.
-- Design preparation and technology setup.
-- Synthesis outputs and physical implementation inputs.
-- Physical design terminology and workflow.
-
-📂 [Explore PD Module 1](../PD_Module%201/README.md)
-
-## PD Module 2 — Floorplanning and Library Cells
-
-**Focus:** Establishing the physical foundation of the design.
-
-Topics include:
-- Core and die area.
-- Utilization and aspect ratio.
-- Standard-cell rows and placement regions.
-- Macro placement and placement blockages.
-- Power planning fundamentals.
-- Library binding and cell characterization.
-- Placement and congestion considerations.
-
-📂 [Explore PD Module 2](../PD_Module%202/README.md)
-
-## PD Module 3 — Placement and Physical Optimization
-
-**Focus:** Understanding cell placement and physical optimization.
-
-Topics include:
-- Standard-cell placement.
-- Placement optimization.
-- Timing and congestion considerations.
-- Physical library and cell-view concepts.
-- Placement-related reports and layout inspection.
-
-📂 [Explore PD Module 3](../PD_Module%203/README.md)
-
-## PD Module 4 — Clock Tree Synthesis and Timing Analysis
-
-**Focus:** Clock distribution and timing behavior.
-
-Topics include:
-- Timing models and delay tables.
-- Pre-layout timing analysis.
-- Setup and hold requirements.
-- Ideal clocks and real clocks.
-- Clock Tree Synthesis.
-- Clock buffers, skew, and uncertainty.
-- OpenSTA timing analysis.
-
-📂 [Explore PD Module 4](../PD_Module%204/README.md)
-
-## PD Module 5 — Routing, DRC, PDN and Parasitic Extraction
-
-**Focus:** Completing the major routing and post-route analysis concepts.
-
-Topics include:
-- Global routing and detailed routing.
-- Lee's maze-routing algorithm.
-- Power Distribution Network construction.
-- Wire-width and via-spacing rules.
-- Design Rule Checking.
-- TritonRoute and route-guide processing.
-- Routing connectivity and topology.
-- Parasitic extraction and SPEF.
-- Post-route timing verification.
-
-📂 [Explore PD Module 5](../PD_Module%205/README.md)
+I continue to build my understanding by documenting each experiment, reviewing results, and connecting theoretical concepts with practical design workflows.
 
 ---
-
-# Assignment — FSM-Based Sequence Detector
-
-This section documents a finite-state-machine design task focused on detecting a specified binary sequence.
-
-**Key areas:**
-- FSM design and state transitions.
-- Sequence detection for `1111001`.
-- Verilog implementation.
-- Testbench development.
-- Functional simulation.
-- Synthesis and gate-level verification.
-
-📂 [Explore the Assignment](../Assignment/README.md)
-
----
-
-# Tools & Technologies
-
-| Tool / Technology | Application |
-|---|---|
-| **Verilog HDL** | RTL design and hardware description |
-| **Icarus Verilog** | RTL and gate-level simulation |
-| **GTKWave** | Waveform visualization |
-| **Yosys** | Logic synthesis and technology mapping |
-| **OpenLane** | Automated RTL-to-GDSII flow |
-| **OpenROAD** | ASIC physical implementation |
-| **RePlAce** | Standard-cell placement |
-| **TritonCTS** | Clock Tree Synthesis |
-| **TritonRoute** | Detailed routing |
-| **OpenSTA** | Static Timing Analysis |
-| **SKY130HD PDK** | Open-source 130 nm technology platform |
-| **Magic** | Layout inspection and supported physical verification |
-| **ngspice** | Circuit simulation and characterization |
-| **LEF** | Technology and physical-cell information |
-| **DEF** | Physical placement and routing representation |
-| **Liberty (`.lib`)** | Standard-cell timing and characterization data |
-| **SDC** | Timing and clock constraints |
-| **SPEF** | Extracted parasitic information |
-| **Tcl** | Design-flow scripting and automation |
-| **Linux / Docker** | Tool execution and environment setup |
-| **Git / GitHub** | Version control and project documentation |
-
----
-
-# Key Learning Outcomes
-
-Through the workshop and VSDBabySoC project, I explored:
-
-- The relationship between RTL descriptions and synthesized hardware.
-- How combinational and sequential circuits are designed and verified.
-- How coding style can affect synthesis results.
-- How technology libraries influence standard-cell mapping.
-- How physical constraints affect floorplanning and placement.
-- How power networks and clock trees support physical implementation.
-- How global and detailed routing create interconnect geometry.
-- How parasitic resistance and capacitance influence timing.
-- How setup and hold requirements are evaluated using STA.
-- Why timing behavior can vary across different PVT corners.
-- How to organize technical documentation and practical design evidence in GitHub.
-
-The overall experience helped me build a stronger connection between **digital design, logic synthesis, physical implementation, and timing verification**.
-
----
-
-# 📂 Repository Structure
-
-```text
-RTL_Design_Workshop/
-│
-├── Module 1/
-├── Module 2/
-├── Module 3/
-├── Module 4/
-├── Module 5/
-│
-├── VSDBabySoC/
-│   ├── README.md
-│   ├── 01_RTL_Design_and_Functional_Verification/
-│   ├── 02_Logic_Synthesis_and_Gate_Level_Verification/
-│   ├── 03_ASIC_Physical_Implementation/
-│   └── 04_Multi_Corner_Static_Timing_Analysis/
-│
-├── PD_Module 1/
-├── PD_Module 2/
-├── PD_Module 3/
-├── PD_Module 4/
-├── PD_Module 5/
-│
-└── VSD_VLSI/
-```
-
-*This is a high-level guide to the repository. Individual folders may contain additional files, screenshots, reports, or subdirectories.*
-
----
-
-# 🔗 Project Repository
-
-Explore the complete workshop repository, including module notes and supporting implementation work.
 
 <p align="center">
-  <a href="https://github.com/itsfari-nova/RTL_Design_Workshop">
-    <img src="https://img.shields.io/badge/GitHub-Explore%20Repository-181717?style=for-the-badge&logo=github" alt="Explore GitHub Repository">
-  </a>
+  ⭐ <b>Learn. Design. Simulate. Synthesize. Implement.</b> ⭐
 </p>
 
----
-
-# Author
-
-**Shaik Farida**  
-B.Tech — Electronics and Communication Engineering
-
-I am exploring RTL design, VLSI, digital systems, and ASIC implementation through hands-on projects and structured technical training.
-
----
-
 <p align="center">
-  <b>From RTL to Silicon — Learning Every Stage of the Design Journey.</b>
-  <br><br>
-  <i>Design • Verify • Synthesize • Implement • Analyze</i>
+  <i>“Every layer of silicon begins with a deeper understanding of the design.”</i>
 </p>
