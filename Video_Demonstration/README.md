@@ -6,9 +6,7 @@ This video provides a walkthrough of my GitHub repository, showcasing the practi
 
 ## Video Walkthrough
 
-▶️ 
-
-*Note: Replace the link above with your Google Drive video link. Make sure the sharing permission is set to “Anyone with the link” as Viewer.*
+▶️ https://drive.google.com/file/d/1w_o4sPBqNbY4Td9qFqXYbKRXs42Am3Xh/view?usp=sharing
 
 ## Topics Covered
 
