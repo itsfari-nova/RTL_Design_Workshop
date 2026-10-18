@@ -162,6 +162,8 @@ This organization allows the repository to function both as a training record an
 
 The walkthrough accompanying this repository introduces its overall structure and demonstrates how the work is organized.
 
+https://drive.google.com/file/d/1w_o4sPBqNbY4Td9qFqXYbKRXs42Am3Xh/view?usp=sharing
+
 The walkthrough covers:
 
 1. An overview of the repository and its purpose.
